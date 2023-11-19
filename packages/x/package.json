@@ -1,5 +1,6 @@
 {
   "name": "purin",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -16,7 +17,7 @@
   "scripts": {
     "dev": "tsc -w",
     "build": "tsc",
-    "prepublishOnly": "pnpm build",
+    "prepublishOnly": "rm -rf ./dist && pnpm build",
     "push": "npm publish --registry https://registry.npmjs.com/"
   },
   "dependencies": {
