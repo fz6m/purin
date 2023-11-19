@@ -1,6 +1,7 @@
 import 'server-only'
-import { NextResponse } from 'next/server'
 import { prisma } from '@purin/db'
+import { apiSend } from '@/utils/api'
+import { NextRequest } from 'next/server'
 
 const getList = async () => {
   try {
@@ -12,10 +13,7 @@ const getList = async () => {
   }
 }
 
-export async function GET(_request: Request) {
+export async function GET(_request: NextRequest) {
   const list = await getList()
-  return NextResponse.json({
-    code: 0,
-    data: list,
-  })
+  return apiSend.success(list)
 }

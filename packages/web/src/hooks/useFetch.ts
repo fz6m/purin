@@ -12,7 +12,10 @@ export const useFetch = <T = any>(path: string) => {
         return
       }
       try {
-        const data = await fetch(fullUrl, { next: { revalidate: 3600 }, ...params })
+        const data = await fetch(fullUrl, {
+          next: { revalidate: 3600, tags: [path] },
+          ...params,
+        })
         if (data?.ok) {
           const json = await data?.json()
           if (json?.code === 0) {

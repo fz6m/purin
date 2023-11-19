@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import { uniq } from 'lodash'
 import { getListHotTweets, type IXAuth } from 'purin'
 import { prisma } from '@purin/db'
 import { getCurrentDayStartIns } from '@/utils/dayjs'
+import { apiSend } from '@/utils/api'
 
 interface IUpdateJson extends IXAuth {
   token: string
@@ -10,43 +11,26 @@ interface IUpdateJson extends IXAuth {
 }
 
 export async function POST(request: NextRequest) {
-  const sendError = (msg: string) => {
-    return NextResponse.json(
-      {
-        code: -1,
-        message: msg,
-      },
-      {
-        status: 400,
-      },
-    )
-  }
-  const sendSuccessful = () => {
-    return NextResponse.json({
-      code: 0,
-      message: 'successful',
-    })
-  }
   let json: Record<string, any> = {}
   try {
     json = await request.json()
   } catch {
-    return sendError('json is invalid')
+    return apiSend.error('json is invalid')
   }
   // TODO: use vercel edge config
   const { token, list, cookie, authorization } = json as IUpdateJson
   const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
   if (token !== updateToken) {
-    return sendError('token is invalid')
+    return apiSend.error('token is invalid')
   }
   if (!cookie) {
-    return sendError('cookie is required')
+    return apiSend.error('cookie is required')
   }
   if (!authorization) {
-    return sendError('authorization is required')
+    return apiSend.error('authorization is required')
   }
   if (!list) {
-    return sendError('list is required')
+    return apiSend.error('list is required')
   }
   const allList = await prisma.list.findFirst({
     where: {
@@ -54,7 +38,7 @@ export async function POST(request: NextRequest) {
     },
   })
   if (!allList?.id) {
-    return sendError('list is invalid')
+    return apiSend.error('list is invalid')
   }
   const auth: IXAuth = {
     cookie,
@@ -82,7 +66,7 @@ export async function POST(request: NextRequest) {
   }
   const newTweets = await getLatestTweets()
   if (!newTweets?.length) {
-    return sendError('getLatestTweets error')
+    return apiSend.error('getLatestTweets error')
   }
   const currentDate = getCurrentDayStartIns()
   const data = await prisma.tweet.findFirst({
@@ -103,7 +87,7 @@ export async function POST(request: NextRequest) {
       })
     } catch (e) {
       console.error('insert error', e)
-      return sendError('insert error')
+      return apiSend.error('insert error')
     }
   } else {
     try {
@@ -117,9 +101,9 @@ export async function POST(request: NextRequest) {
       })
     } catch (e) {
       console.error('update error', e)
-      return sendError('update error')
+      return apiSend.error('update error')
     }
   }
   console.log(`update ${list} (${currentDate.format('YYYY-MM-DD')}) successful`)
-  return sendSuccessful()
+  return apiSend.success()
 }

@@ -1,10 +1,11 @@
 import 'server-only'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
 import { isDateValid, isListValid } from '@/service/schema'
 import type { ITweetsReq } from '@/service/interface'
 import { DAY_LIMIT } from '@/constants'
 import { prisma } from '@purin/db'
 import { dayIns, getCurrentDayStartIns } from '@/utils/dayjs'
+import { apiSend } from '@/utils/api'
 
 const getTweets = async (opts: ITweetsReq) => {
   const { list, date } = opts
@@ -29,27 +30,15 @@ export async function GET(request: NextRequest) {
   const date = searchParams.get('date') as string | undefined
   const list = searchParams.get('list') as string | undefined
 
-  const sendError = (msg: string) => {
-    return NextResponse.json(
-      {
-        code: -1,
-        message: msg,
-      },
-      {
-        status: 400,
-      },
-    )
-  }
-
   if (!date?.length || !list?.length) {
-    return sendError('date and list are required')
+    return apiSend.error('date and list are required')
   }
 
   if (!isDateValid(date)) {
-    return sendError('date is invalid')
+    return apiSend.error('date is invalid')
   }
   if (!isListValid(list)) {
-    return sendError('list is invalid')
+    return apiSend.error('list is invalid')
   }
 
   // only can search 10 days ago
@@ -60,11 +49,11 @@ export async function GET(request: NextRequest) {
   const userDay = dayIns(date)
   const isFuture = userDay.isAfter(currentDay)
   if (isFuture) {
-    return sendError('date is invalid')
+    return apiSend.error('date is invalid')
   }
   const isOld = !userDay.isSame(startDay) && userDay.isBefore(startDay)
   if (isOld) {
-    return sendError('date is invalid')
+    return apiSend.error('date is invalid')
   }
 
   // call db
@@ -73,8 +62,5 @@ export async function GET(request: NextRequest) {
     list,
   })
 
-  return NextResponse.json({
-    code: 0,
-    data: ids,
-  })
+  return apiSend.success(ids)
 }
