@@ -1,0 +1,33 @@
+{
+  "name": "purin",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "description": "X (Twitter) list API for getting the top tweets of the day",
+  "homepage": "https://github.com/fz6m/purin/tree/main/packages/x#README",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fz6m/purin"
+  },
+  "license": "MIT",
+  "author": "fz6m",
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "prepublishOnly": "pnpm build",
+    "push": "npm publish --registry https://registry.npmjs.com/"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "https-proxy-agent": "^7.0.2",
+    "lodash": "^4.17.21",
+    "qs": "^6.11.2",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.201",
+    "@types/qs": "^6.9.10"
+  }
+}
