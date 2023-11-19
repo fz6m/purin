@@ -1,15 +1,19 @@
 'use client'
 
-import { atom, useAtom } from 'jotai'
 import { isNil } from 'lodash'
-import { useRef } from 'react'
+import { createContext, useContext, useRef } from 'react'
 
-export const progressState = atom(0)
+interface IClientContext {
+  progress: number
+  setProgress: (v: number) => void
+}
+
+export const ClientContext = createContext<IClientContext>(null!)
 
 // 😅
 // FIXME: feels like it still has `undefined` problem
 export const useProgress = () => {
-  const [progress, setProgress] = useAtom(progressState)
+  const { progress, setProgress } = useContext(ClientContext)
   const doneRef = useRef(false)
   const timerRef = useRef<NodeJS.Timeout>()
 

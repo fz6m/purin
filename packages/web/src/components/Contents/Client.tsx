@@ -6,8 +6,9 @@ import { TopLoadingBar } from '../TopLoadingBar'
 import { DateSwitch, IOption } from './DateSwitch'
 import { ListSelect } from './ListSelect'
 import { IListItem } from '@/service/interface'
-import { Provider } from 'jotai'
 import { getCurrentDayStartIns } from '@/utils/dayjs'
+import { useState } from 'react'
+import { ClientContext } from '@/store/progress'
 
 interface IClientProps {
   allList: IListItem[]
@@ -40,12 +41,14 @@ export const Client = ({
   }
   const dateOptions = getDateOptions()
 
+  const [progress, setProgress] = useState(0)
+
   return (
-    <Provider>
+    <ClientContext.Provider value={{ progress, setProgress }}>
       <TopLoadingBar />
       <ListSelect list={allList} active={finalList} oldUrl={oldUrl} />
       <DateSwitch oldUrl={oldUrl} active={finalDate} options={dateOptions} />
       <Tabs tweetIds={allTweets} />
-    </Provider>
+    </ClientContext.Provider>
   )
 }
