@@ -5,6 +5,7 @@ import { playFont, workFont } from '@/utils/fonts'
 import cx from 'classnames'
 import { SEO, getFinalDescription, getFinalTitle } from '@/components/SEO'
 import { meta } from '@/constants/metadata'
+import { JsonLD } from '@/components/SEO/jsonLD'
 
 export const metadata: Metadata = {
   title: getFinalTitle(meta.title),
@@ -72,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <SEO title={meta.title} />
+      <JsonLD title={meta.title} />
       <body className={cx(playFont.variable, workFont.variable)}>
         {children}
       </body>

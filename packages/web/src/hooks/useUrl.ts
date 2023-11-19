@@ -14,7 +14,8 @@ const parseUrl = (url?: string) => {
       const protocol = urlIns?.protocol || 'https:'
       const pathname = urlIns?.pathname || ''
       const search = urlIns?.search || ''
-      const fullUrlWithoutSearch = `${protocol}//${cleanHost}${pathname}`
+      const siteUrl = `${protocol}//${cleanHost}`
+      const fullUrlWithoutSearch = `${siteUrl}${pathname}`
       const fullUrl = `${fullUrlWithoutSearch}${search}`
       const routePushUrl = `${pathname}${search}`
       return {
@@ -22,6 +23,7 @@ const parseUrl = (url?: string) => {
         protocol,
         pathname,
         search,
+        siteUrl,
         fullUrl,
         fullUrlWithoutSearch,
         routePushUrl,
