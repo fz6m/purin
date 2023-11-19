@@ -4,13 +4,14 @@ import { getListHotTweets, type IXAuth } from 'purin'
 import { prisma } from '@purin/db'
 import { getCurrentDayStartIns } from '@/utils/dayjs'
 import { apiSend } from '@/utils/api'
+import { kv } from '@vercel/kv'
 
 interface IUpdateJson extends IXAuth {
   token: string
   list: string
 }
 
-export async function POST(request: NextRequest) {
+async function inner(request: NextRequest) {
   let json: Record<string, any> = {}
   try {
     json = await request.json()
@@ -106,4 +107,27 @@ export async function POST(request: NextRequest) {
   }
   console.log(`update ${list} (${currentDate.format('YYYY-MM-DD')}) successful`)
   return apiSend.success()
+}
+
+const KEY = `tweets/update-calling`
+// we cannot execute concurrently at the same time
+// because twitter has request rate limit
+export async function POST(request: NextRequest) {
+  const value = await kv.get(KEY)
+  const isCalling = `${value}` === 'true'
+  if (isCalling) {
+    return apiSend.error('calling')
+  }
+  try {
+    await kv.set(KEY, 'true', {
+      ex: 5,
+    })
+    const res = await inner(request)
+    return res
+  } catch (e) {
+    console.error('update error', e)
+    return apiSend.error('update error')
+  } finally {
+    await kv.del(KEY)
+  }
 }

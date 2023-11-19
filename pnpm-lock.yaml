@@ -45,6 +45,9 @@ importers:
       '@vercel/edge-config':
         specifier: ^0.4.1
         version: registry.npmjs.org/@vercel/edge-config@0.4.1
+      '@vercel/kv':
+        specifier: ^1.0.0
+        version: registry.npmjs.org/@vercel/kv@1.0.0
       classnames:
         specifier: ^2.3.2
         version: registry.npmjs.org/classnames@2.3.2
@@ -1298,6 +1301,14 @@ packages:
     version: 1.2.0
     dev: true
 
+  registry.npmjs.org/@upstash/redis@1.24.3:
+    resolution: {integrity: sha512-gw6d4IA1biB4eye5ESaXc0zOlVQI94aptsBvVcTghYWu1kRmOrJFoMFEDCa8p5uzluyYAOFCuY2GWLR6O4ZoIw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@upstash/redis/-/redis-1.24.3.tgz}
+    name: '@upstash/redis'
+    version: 1.24.3
+    dependencies:
+      crypto-js: registry.npmjs.org/crypto-js@4.2.0
+    dev: false
+
   registry.npmjs.org/@vercel/edge-config-fs@0.1.0:
     resolution: {integrity: sha512-NRIBwfcS0bUoUbRWlNGetqjvLSwgYH/BqKqDN7vK1g32p7dN96k0712COgaz6VFizAm9b0g6IG6hR6+hc0KCPg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@vercel/edge-config-fs/-/edge-config-fs-0.1.0.tgz}
     name: '@vercel/edge-config-fs'
@@ -1311,6 +1322,15 @@ packages:
     engines: {node: '>=14.6'}
     dependencies:
       '@vercel/edge-config-fs': registry.npmjs.org/@vercel/edge-config-fs@0.1.0
+    dev: false
+
+  registry.npmjs.org/@vercel/kv@1.0.0:
+    resolution: {integrity: sha512-StouXunmEqUfKE+1joSYfELWEEnI1MhTnzUdarHtv6H18RAm3cf5u5g9ElvA1DJNHcrMT6g5yVAhZcYRbk6lvg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@vercel/kv/-/kv-1.0.0.tgz}
+    name: '@vercel/kv'
+    version: 1.0.0
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@upstash/redis': registry.npmjs.org/@upstash/redis@1.24.3
     dev: false
 
   registry.npmjs.org/@xn-sakina/mental@4.2.0:
@@ -1837,6 +1857,12 @@ packages:
       shebang-command: registry.npmjs.org/shebang-command@2.0.0
       which: registry.npmjs.org/which@2.0.2
     dev: true
+
+  registry.npmjs.org/crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/crypto-js/-/crypto-js-4.2.0.tgz}
+    name: crypto-js
+    version: 4.2.0
+    dev: false
 
   registry.npmjs.org/css-background-parser@0.1.0:
     resolution: {integrity: sha512-2EZLisiZQ+7m4wwur/qiYJRniHX4K5Tc9w93MT3AS0WS1u5kaZ4FKXlOTBhOjc+CgEgPiGY+fX1yWD8UwpEqUA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/css-background-parser/-/css-background-parser-0.1.0.tgz}
