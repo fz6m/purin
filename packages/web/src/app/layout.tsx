@@ -5,7 +5,7 @@ import { playFont, workFont } from '@/utils/fonts'
 import cx from 'classnames'
 import { SEO, getFinalDescription, getFinalTitle } from '@/components/SEO'
 import { meta } from '@/constants/metadata'
-import { JsonLD } from '@/components/SEO/jsonLD'
+import { JsonLD } from '@/components/SEO/JsonLD'
 
 export const metadata: Metadata = {
   title: getFinalTitle(meta.title),

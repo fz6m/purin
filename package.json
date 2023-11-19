@@ -1,0 +1,22 @@
+{
+  "name": "purin-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "db:type:gen": "pnpm --filter @purin/db g",
+    "build": "pnpm db:type:gen && pnpm --filter @purin/web build"
+  },
+  "engines": {
+    "node": ">=18",
+    "npm": "not supported, use pnpm",
+    "yarn": "not supported, use pnpm"
+  },
+  "packageManager": "pnpm@8.10.0",
+  "devDependencies": {
+    "@types/node": "^20.9.1",
+    "@xn-sakina/mental": "^4.2.0",
+    "tsx": "^4.1.3",
+    "typescript": "^5.2.2",
+    "zx": "^7.2.3"
+  }
+}

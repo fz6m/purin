@@ -2,7 +2,7 @@
 
 import { atom, useAtom } from 'jotai'
 import { isNil } from 'lodash'
-import { useCallback, useRef } from 'react'
+import { useRef } from 'react'
 
 export const progressState = atom(0)
 
@@ -22,7 +22,7 @@ export const useProgress = () => {
     })
   }
 
-  const done = useCallback(() => {
+  const done = () => {
     if (!isNil(doneRef?.current)) {
       doneRef.current = true
     }
@@ -31,7 +31,7 @@ export const useProgress = () => {
     if (timer) {
       clearTimeout(timer)
     }
-  }, [])
+  }
 
   const start = () => {
     if (!isNil(doneRef?.current)) {
@@ -54,7 +54,7 @@ export const useProgress = () => {
     }, 800)
   }
 
-  const onLoaderFinish = useCallback(() => {
+  const onLoaderFinish = () => {
     setProgress(0)
     if (!isNil(doneRef?.current)) {
       doneRef.current = true
@@ -62,7 +62,7 @@ export const useProgress = () => {
     if (timerRef?.current) {
       clearTimeout(timerRef.current)
     }
-  }, [])
+  }
 
   return {
     done,
