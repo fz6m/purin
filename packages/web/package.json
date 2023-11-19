@@ -32,6 +32,7 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@prisma/nextjs-monorepo-workaround-plugin": "^5.6.0",
     "@resvg/resvg-js": "^2.6.0",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.14.201",
