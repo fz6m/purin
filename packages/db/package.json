@@ -6,12 +6,20 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "g": "prisma generate"
+    "g": "prisma generate",
+    "db:local": "dotenv -e .env.local -- pnpm prisma migrate dev",
+    "db:prod": "dotenv -e .env.prod -- pnpm prisma db push",
+    "db:prod:insert": "dotenv -e .env.prod -- pnpm tsx ./scripts/insert_list.ts"
+  },
+  "//": {
+    "doc": "https://supabase.com/partners/integrations/prisma",
+    "doc2": "https://www.prisma.io/docs/guides/database/supabase"
   },
   "dependencies": {
     "@prisma/client": "5.6.0"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "prisma": "^5.6.0"
   }
 }
