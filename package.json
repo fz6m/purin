@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "db:type:gen": "pnpm --filter @purin/db g",
-    "build": "pnpm db:type:gen && pnpm --filter @purin/web build"
+    "build:deps": "pnpm --filter @purin/db build && pnpm --filter purin build",
+    "build": "pnpm build:deps && pnpm db:type:gen && pnpm --filter @purin/web build"
   },
   "engines": {
     "node": ">=18",
