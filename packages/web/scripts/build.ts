@@ -1,8 +1,7 @@
 import 'zx/globals'
 
 const run = async () => {
-  await $`cd ../.. && pnpm build:deps`
-  await $`pnpm build`
+  await $`cd ../.. && pnpm build`
 }
 
 run()
