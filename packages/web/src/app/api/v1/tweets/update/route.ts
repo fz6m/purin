@@ -10,10 +10,6 @@ interface IUpdateJson extends IXAuth {
 }
 
 export async function POST(request: NextRequest) {
-  const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
-  const json = await request.json()
-  // TODO: use vercel edge config
-  const { token, list, cookie, authorization } = json as IUpdateJson
   const sendError = (msg: string) => {
     return NextResponse.json(
       {
@@ -31,8 +27,26 @@ export async function POST(request: NextRequest) {
       message: 'successful',
     })
   }
+  let json: Record<string, any> = {}
+  try {
+    json = await request.json()
+  } catch {
+    return sendError('json is invalid')
+  }
+  // TODO: use vercel edge config
+  const { token, list, cookie, authorization } = json as IUpdateJson
+  const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
   if (token !== updateToken) {
     return sendError('token is invalid')
+  }
+  if (!cookie) {
+    return sendError('cookie is required')
+  }
+  if (!authorization) {
+    return sendError('authorization is required')
+  }
+  if (!list) {
+    return sendError('list is required')
   }
   const allList = await prisma.list.findFirst({
     where: {
@@ -41,12 +55,6 @@ export async function POST(request: NextRequest) {
   })
   if (!allList?.id) {
     return sendError('list is invalid')
-  }
-  if (!cookie) {
-    return sendError('cookie is required')
-  }
-  if (!authorization) {
-    return sendError('authorization is required')
   }
   const auth: IXAuth = {
     cookie,
