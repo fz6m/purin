@@ -15,6 +15,7 @@
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.5",
+    "jotai": "^2.5.1",
     "ldrs": "^1.0.1",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",

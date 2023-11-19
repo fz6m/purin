@@ -54,6 +54,9 @@ importers:
       framer-motion:
         specifier: ^10.16.5
         version: registry.npmjs.org/framer-motion@10.16.5(react-dom@18.2.0)(react@18.2.0)
+      jotai:
+        specifier: ^2.5.1
+        version: registry.npmjs.org/jotai@2.5.1(@types/react@18.2.37)(react@18.2.0)
       ldrs:
         specifier: ^1.0.1
         version: registry.npmjs.org/ldrs@1.0.1
@@ -3337,6 +3340,25 @@ packages:
     version: 1.21.0
     hasBin: true
     dev: true
+
+  registry.npmjs.org/jotai@2.5.1(@types/react@18.2.37)(react@18.2.0):
+    resolution: {integrity: sha512-vanPCCSuHczUXNbVh/iUunuMfrWRL4FdBtAbTRmrfqezJcKb8ybBTg8iivyYuUHapjcDETyJe1E4inlo26bVHA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/jotai/-/jotai-2.5.1.tgz}
+    id: registry.npmjs.org/jotai/2.5.1
+    name: jotai
+    version: 2.5.1
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=17.0.0'
+      react: '>=17.0.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      '@types/react': registry.npmjs.org/@types/react@18.2.37
+      react: registry.npmjs.org/react@18.2.0
+    dev: false
 
   registry.npmjs.org/js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz}
