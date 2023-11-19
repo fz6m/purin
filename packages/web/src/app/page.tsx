@@ -50,9 +50,10 @@ export default async function Home({
             'text-2xl font-bold',
             'cursor-default',
             'flex items-center',
+            'font-play',
           )}
         >
-          <span className={'font-play'}>{`Purin`}</span>
+          <span>{`Purin`}</span>
           <Image
             src={xIcon.src}
             width={26}
@@ -64,7 +65,7 @@ export default async function Home({
               'max-w-full',
             )}
           />
-          <span className={'font-play'}>{`Explorer`}</span>
+          <span>{`Explorer`}</span>
         </h1>
         <Suspense fallback={<CardioLoading />}>
           <Contents list={reqList} date={reqDate} />
