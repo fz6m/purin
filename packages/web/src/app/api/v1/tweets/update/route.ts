@@ -8,7 +8,6 @@ import { kv } from '@vercel/kv'
 import { get as edgeGet } from '@vercel/edge-config'
 
 interface IUpdateJson extends IXAuth {
-  token: string
   list: string
 }
 
@@ -102,7 +101,8 @@ async function inner(json: Record<string, any>) {
 const KEY_CD = `tweets/update-cd`
 const KEY_PREV_GETTED_LIST = `tweets/update-prev-list`
 export async function GET(request: NextRequest) {
-  if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+  const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
+  if (request.headers.get('Authorization') !== `Bearer ${updateToken}`) {
     return apiSend.unauthorized()
   }
   const cdValue = await kv.get(KEY_CD)
@@ -185,6 +185,10 @@ const KEY = `tweets/update-calling`
 // we cannot execute concurrently at the same time
 // because twitter has request rate limit
 export async function POST(request: NextRequest) {
+  const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
+  if (request.headers.get('Authorization') !== `Bearer ${updateToken}`) {
+    return apiSend.unauthorized()
+  }
   const isCall = await isCalling()
   if (isCall) {
     return apiSend.error('calling')
@@ -196,11 +200,6 @@ export async function POST(request: NextRequest) {
       json = await request.json()
     } catch {
       return apiSend.error('json is invalid')
-    }
-    const token = json?.token
-    const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
-    if (token !== updateToken) {
-      return apiSend.error('token is invalid')
     }
     const res = await inner(json)
     return res
