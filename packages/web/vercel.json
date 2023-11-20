@@ -1,5 +1,4 @@
 {
-  "buildCommand": "pnpm build:ci",
   "crons": [
     {
       "path": "/api/v1/tweets/update",

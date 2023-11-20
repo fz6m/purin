@@ -20,4 +20,15 @@ export const apiSend = {
       data,
     })
   },
+  unauthorized: () => {
+    return NextResponse.json(
+      {
+        code: -1,
+        message: 'Unauthorized',
+      },
+      {
+        status: 401,
+      },
+    )
+  },
 }

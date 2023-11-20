@@ -102,6 +102,9 @@ async function inner(json: Record<string, any>) {
 const KEY_CD = `tweets/update-cd`
 const KEY_PREV_GETTED_LIST = `tweets/update-prev-list`
 export async function GET(request: NextRequest) {
+  if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+    return apiSend.unauthorized()
+  }
   const cdValue = await kv.get(KEY_CD)
   const isCD = `${cdValue}` === 'true'
   if (isCD) {
