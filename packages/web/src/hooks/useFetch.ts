@@ -13,7 +13,11 @@ export const useFetch = <T = any>(path: string) => {
       }
       try {
         const data = await fetch(fullUrl, {
-          next: { revalidate: 3600, tags: [path] },
+          next: {
+            revalidate: 3600,
+            // 🤬 https://github.com/vercel/next.js/issues/55960
+            // tags: [path],
+          },
           ...params,
         })
         if (data?.ok) {

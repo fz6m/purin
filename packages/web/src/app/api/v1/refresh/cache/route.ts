@@ -1,12 +1,17 @@
 import { apiSend } from '@/utils/api'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 
-export async function GET(request: NextRequest) {
-  const searchParams = new URLSearchParams(request.nextUrl.search)
-  const path = searchParams.get('path')
+export async function POST(request: NextRequest) {
+  let json: Record<string, any> = {}
+  try {
+    json = await request.json()
+  } catch {
+    return apiSend.error('invalid json')
+  }
+  const path = json?.path
   if (path?.length) {
-    revalidateTag(path)
+    revalidatePath(path)
     return apiSend.success()
   }
   return apiSend.error('path is required')
