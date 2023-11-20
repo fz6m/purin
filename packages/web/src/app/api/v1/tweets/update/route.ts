@@ -123,15 +123,26 @@ export async function GET(request: NextRequest) {
   if (!ids?.length) {
     return apiSend.error('list is empty')
   }
-  if (!hasPrevList) {
-    willGetList = ids[0]
+  const params = new URLSearchParams(request.nextUrl.search)
+  const userList = params.get('list')
+  if (userList?.length) {
+    const isAvailableList = ids.includes(userList)
+    if (!isAvailableList) {
+      return apiSend.error('list is invalid')
+    } else {
+      willGetList = userList
+    }
   } else {
-    const prevListIndex = ids.indexOf(prevListAsString)
-    const nextListIndex = prevListIndex + 1
-    if (nextListIndex >= ids.length) {
+    if (!hasPrevList) {
       willGetList = ids[0]
     } else {
-      willGetList = ids[nextListIndex]
+      const prevListIndex = ids.indexOf(prevListAsString)
+      const nextListIndex = prevListIndex + 1
+      if (nextListIndex >= ids.length) {
+        willGetList = ids[0]
+      } else {
+        willGetList = ids[nextListIndex]
+      }
     }
   }
   const cookie = await edgeGet('cookie')
