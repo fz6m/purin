@@ -5,25 +5,15 @@ import { prisma } from '@purin/db'
 import { getCurrentDayStartIns } from '@/utils/dayjs'
 import { apiSend } from '@/utils/api'
 import { kv } from '@vercel/kv'
+import { get as edgeGet } from '@vercel/edge-config'
 
 interface IUpdateJson extends IXAuth {
   token: string
   list: string
 }
 
-async function inner(request: NextRequest) {
-  let json: Record<string, any> = {}
-  try {
-    json = await request.json()
-  } catch {
-    return apiSend.error('json is invalid')
-  }
-  // TODO: use vercel edge config
-  const { token, list, cookie, authorization } = json as IUpdateJson
-  const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
-  if (token !== updateToken) {
-    return apiSend.error('token is invalid')
-  }
+async function inner(json: Record<string, any>) {
+  const { list, cookie, authorization } = json as IUpdateJson
   if (!cookie) {
     return apiSend.error('cookie is required')
   }
@@ -109,25 +99,112 @@ async function inner(request: NextRequest) {
   return apiSend.success()
 }
 
+const KEY_CD = `tweets/update-cd`
+const KEY_PREV_GETTED_LIST = `tweets/update-prev-list`
+export async function GET(request: NextRequest) {
+  const cdValue = await kv.get(KEY_CD)
+  const isCD = `${cdValue}` === 'true'
+  if (isCD) {
+    return apiSend.error('cd')
+  }
+  await kv.set(KEY_CD, 'true', {
+    // 58 mins
+    ex: 60 * 58,
+  })
+  const prevGettedList = await kv.get(KEY_PREV_GETTED_LIST)
+  const prevListAsString = `${prevGettedList}`
+  const hasPrevList = prevGettedList && prevListAsString?.length
+  let willGetList: string
+  const allList = await prisma.list.findMany()
+  const ids = allList.map((item) => item.id)
+  if (!ids?.length) {
+    return apiSend.error('list is empty')
+  }
+  if (!hasPrevList) {
+    willGetList = ids[0]
+  } else {
+    const prevListIndex = ids.indexOf(prevListAsString)
+    const nextListIndex = prevListIndex + 1
+    if (nextListIndex >= ids.length) {
+      willGetList = ids[0]
+    } else {
+      willGetList = ids[nextListIndex]
+    }
+  }
+  const cookie = await edgeGet('cookie')
+  const cookieAsString = cookie?.toString()
+  if (!cookieAsString?.length) {
+    return apiSend.error('cookie is empty')
+  }
+  const authorization = await edgeGet('authorization')
+  const authorizationAsString = authorization?.toString()
+  if (!authorizationAsString?.length) {
+    return apiSend.error('authorization is empty')
+  }
+  const isCall = await isCalling()
+  if (isCall) {
+    return apiSend.error('calling')
+  }
+  try {
+    await setCall()
+    const res = await inner({
+      list: willGetList,
+      cookie: cookieAsString,
+      authorization: authorizationAsString,
+    })
+    if (res?.status === 200) {
+      await kv.set(KEY_PREV_GETTED_LIST, willGetList)
+    }
+    return res
+  } catch (e) {
+    console.error('auto update error', e)
+    return apiSend.error('auto update error')
+  } finally {
+    await clearCall()
+  }
+}
+
+async function isCalling() {
+  const value = await kv.get(KEY)
+  const isCalling = `${value}` === 'true'
+  return isCalling
+}
+async function setCall() {
+  await kv.set(KEY, 'true', {
+    ex: 5,
+  })
+}
+async function clearCall() {
+  await kv.del(KEY)
+}
+
 const KEY = `tweets/update-calling`
 // we cannot execute concurrently at the same time
 // because twitter has request rate limit
 export async function POST(request: NextRequest) {
-  const value = await kv.get(KEY)
-  const isCalling = `${value}` === 'true'
-  if (isCalling) {
+  const isCall = await isCalling()
+  if (isCall) {
     return apiSend.error('calling')
   }
   try {
-    await kv.set(KEY, 'true', {
-      ex: 5,
-    })
-    const res = await inner(request)
+    await setCall()
+    let json: Record<string, any> = {}
+    try {
+      json = await request.json()
+    } catch {
+      return apiSend.error('json is invalid')
+    }
+    const token = json?.token
+    const updateToken = process.env.NEXT_APP_TWEETS_UPDATE_TOKEN
+    if (token !== updateToken) {
+      return apiSend.error('token is invalid')
+    }
+    const res = await inner(json)
     return res
   } catch (e) {
     console.error('update error', e)
     return apiSend.error('update error')
   } finally {
-    await kv.del(KEY)
+    await clearCall()
   }
 }
