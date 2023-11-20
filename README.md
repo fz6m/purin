@@ -6,23 +6,25 @@ X(Twitter) list collector
 
 ### How to self host
 
-1. [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffz6m%2Fpurin&env=DIRECT_URL,DATABASE_URL,NEXT_APP_TWEETS_UPDATE_TOKEN&project-name=purin)
+1. Prepare to deploy to Vercel:
+  
+    [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffz6m%2Fpurin&env=DIRECT_URL,DATABASE_URL,NEXT_APP_TWEETS_UPDATE_TOKEN&project-name=purin)
 
-2. Environment variables:
+1. Environment variables:
 
     |Name|Description|
     |:-|:-|
-    |`NEXT_APP_TWEETS_UPDATE_TOKEN`|manually update token for tweet data api|
+    |`NEXT_APP_TWEETS_UPDATE_TOKEN`|Manually update token for tweet data api|
     |`DIRECT_URL`|Postgres connection string|
     |`DATABASE_URL`|Postgres connection pooling string (or same as `DIRECT_URL`)|
 
-3. Create a `Vercel Edge config` storage and connect to the project.
+2. Create a `Vercel Edge config` storage and connect to the project.
 
-4. Create a `Vercel KV` storage and connect to the project.
+3. Create a `Vercel KV` storage and connect to the project.
 
-5. Create Data Tables:
+4. Create Data Tables.
 
-    Crate `packages/db/.env.prod`:
+    Create `packages/db/.env.prod`:
 
     ```bash
     DIRECT_URL=...
@@ -37,7 +39,7 @@ X(Twitter) list collector
       pnpm db:prod
     ```
 
-6. Insert list to DB:
+5. Insert list to DB.
    
    Create `packages/db/scripts/list.local.json`:
 
@@ -59,7 +61,7 @@ X(Twitter) list collector
      pnpm db:prod:insert
    ```
 
-7. Get list data:
+6. Get list data.
 
    Manual request:
 
@@ -75,7 +77,7 @@ X(Twitter) list collector
    )
    ```
 
-   Cron job:
+   Or cron job:
 
    ```ts
    // 0 * * * * (requests per hour)
