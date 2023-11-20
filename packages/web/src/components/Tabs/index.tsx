@@ -8,6 +8,7 @@ import cx from 'classnames'
 import styles from './index.module.scss'
 import { useInView } from 'react-intersection-observer'
 import { useProgress } from '@/store/progress'
+import { ErrorBoundary } from 'react-error-boundary'
 
 interface ITabsProps {
   tweetIds?: string[]
@@ -24,9 +25,7 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
   }, [tweetIds])
 
   if (!ids?.length) {
-    return (
-      <div className={cx('pt-2')}>{`No tweets found`}</div>
-    )
+    return <div className={cx('pt-2')}>{`No tweets found`}</div>
   }
 
   return (
@@ -36,12 +35,14 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
           {ids.map((id, idx) => {
             return (
               <div className={cx('flex relative w-full')} key={id}>
-                <LazyTweet
-                  id={id}
-                  isRead={isRead(id)}
-                  index={idx}
-                  markAsRead={markAsRead}
-                />
+                <ErrorBoundary fallback={<TweetError id={id} idx={idx} />}>
+                  <LazyTweet
+                    id={id}
+                    isRead={isRead(id)}
+                    index={idx}
+                    markAsRead={markAsRead}
+                  />
+                </ErrorBoundary>
               </div>
             )
           })}
@@ -51,7 +52,7 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
             'text-lg text-slate-800 italic font-medium',
             'py-1 mt-[-0.25rem]',
             'cursor-default',
-            'font-work'
+            'font-work',
           )}
         >
           {`Total`}
@@ -59,6 +60,28 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
           {`tweets`}
         </div>
       </div>
+    </div>
+  )
+}
+
+function TweetError({ id, idx }: { id: string, idx: number }) {
+  const isFirst = idx === 0
+  return (
+    <div className={cx(
+      'flex justify-center items-center',
+      'py-3 px-4',
+      isFirst && 'mt-3',
+      'border rounded-lg border-slate-300',
+    )}>
+      {`🟡 Oops, something went wrong, maybe tweet is deleted.`}
+      <a
+        className={cx('pl-3', 'text-blue-500 font-medium')}
+        target="_blank"
+        rel="noreferrer noopener"
+        href={`https://twitter.com/name/status/${id}`}
+      >
+        Link
+      </a>
     </div>
   )
 }
