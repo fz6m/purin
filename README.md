@@ -84,9 +84,9 @@ X(Twitter) list collector
    await axios.get(
      `https://deploy.domain.com/api/v1/tweets/update`,
      { 
+       headers: { Authorization: `Bearer ${NEXT_APP_TWEETS_UPDATE_TOKEN}` },
        params: {} // cycle update, or `{ list }`
-     },
-     { headers: { Authorization: `Bearer ${NEXT_APP_TWEETS_UPDATE_TOKEN}` }}
+     }
    )
    ```
 
