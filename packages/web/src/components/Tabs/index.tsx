@@ -27,6 +27,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   }, [tweetIds])
 
   const [errorIdxs, setErrorIdxs] = useState<number[]>([])
+  const [errorIds, setErrorIds] = useState<string[]>([])
 
   const readIdsSnapshotRef = useRef<string[]>()
   useEffect(() => {
@@ -37,17 +38,26 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
     func()
   }, [])
 
-  const hideRead = advancedConfigs?.hideRead
-
-  const idFilter = (ids: string[]) => {
-    if (!hideRead) {
-      return ids
+  const idFilter = (originIds: string[]) => {
+    const hideRead = advancedConfigs?.hideRead
+    const hideReadFilter = (ids: string[]) => {
+      if (!hideRead) {
+        return ids
+      }
+      const snapshot = readIdsSnapshotRef.current
+      if (snapshot === undefined) {
+        return []
+      }
+      return ids.filter((id) => !snapshot.includes(id))
     }
-    const snapshot = readIdsSnapshotRef.current
-    if (snapshot === undefined) {
-      return []
+    const hideError = advancedConfigs?.hideError
+    const hideErrorFilter = (ids: string[]) => {
+      if (!hideError) {
+        return ids
+      }
+      return ids.filter((id) => !errorIds.includes(id))
     }
-    return ids.filter((id) => !snapshot.includes(id))
+    return hideErrorFilter(hideReadFilter(originIds))
   }
 
   if (!ids?.length) {
@@ -68,6 +78,9 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
                   onError={() => {
                     setErrorIdxs((prev) => {
                       return uniq([...prev, idx])
+                    })
+                    setErrorIds((prev) => {
+                      return uniq([...prev, id])
                     })
                   }}
                   fallback={
@@ -109,13 +122,12 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
 function TweetError({
   id,
   isNextError,
-  className
+  className,
 }: {
   id: string
   isNextError?: boolean
   className?: string
 }) {
-
   return (
     <div
       className={cx(
