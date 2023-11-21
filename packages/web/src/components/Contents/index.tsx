@@ -2,9 +2,20 @@ import { APIS } from '@/constants'
 import { useFetch } from '@/hooks/useFetch'
 import { IListItem } from '@/service/interface'
 import { useUrl } from '@/hooks/useUrl'
-import { Client } from './Client'
-import { Suspense } from 'react'
 import { getCurrentDateLabel } from '@/utils/dayjs'
+import dynamic from 'next/dynamic'
+import { CardioLoading } from './CardioLoading'
+
+const Client = dynamic(
+  () =>
+    import('./Client').then(({ Client }) => ({
+      default: Client,
+    })),
+  {
+    ssr: false,
+    loading: () => <CardioLoading />,
+  },
+)
 
 interface IContentsProps {
   list?: string
@@ -48,14 +59,12 @@ export const Contents = async ({ list, date }: IContentsProps) => {
   }
 
   return (
-    <Suspense>
-      <Client
-        allList={allList}
-        allTweets={allTweets}
-        finalDate={finalDate}
-        finalList={finalList}
-        oldUrl={parsedUrl.fullUrl}
-      />
-    </Suspense>
+    <Client
+      allList={allList}
+      allTweets={allTweets}
+      finalDate={finalDate}
+      finalList={finalList}
+      oldUrl={parsedUrl.fullUrl}
+    />
   )
 }

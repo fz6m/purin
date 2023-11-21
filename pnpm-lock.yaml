@@ -39,6 +39,15 @@ importers:
 
   packages/web:
     dependencies:
+      '@anatoliygatt/heart-switch':
+        specifier: ^1.0.13
+        version: registry.npmjs.org/@anatoliygatt/heart-switch@1.0.13(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@18.2.0)
+      '@emotion/react':
+        specifier: ^11.11.1
+        version: registry.npmjs.org/@emotion/react@11.11.1(@types/react@18.2.37)(react@18.2.0)
+      '@emotion/styled':
+        specifier: ^11.11.0
+        version: registry.npmjs.org/@emotion/styled@11.11.0(@emotion/react@11.11.1)(@types/react@18.2.37)(react@18.2.0)
       '@purin/db':
         specifier: workspace:*
         version: link:../db
@@ -48,6 +57,9 @@ importers:
       '@vercel/kv':
         specifier: ^1.0.0
         version: registry.npmjs.org/@vercel/kv@1.0.0
+      ahooks:
+        specifier: ^3.7.8
+        version: registry.npmjs.org/ahooks@3.7.8(react@18.2.0)
       classnames:
         specifier: ^2.3.2
         version: registry.npmjs.org/classnames@2.3.2
@@ -190,6 +202,21 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  registry.npmjs.org/@anatoliygatt/heart-switch@1.0.13(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(react@18.2.0):
+    resolution: {integrity: sha512-Dr3gdbBoMgbVFbtB4pcXSZdy+p3vfbIx9WweQFHVDzWIlDaZAkjywVti/Vz/Jz2BWYUkTcH6aIAb8goxLxaOwA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@anatoliygatt/heart-switch/-/heart-switch-1.0.13.tgz}
+    id: registry.npmjs.org/@anatoliygatt/heart-switch/1.0.13
+    name: '@anatoliygatt/heart-switch'
+    version: 1.0.13
+    peerDependencies:
+      '@emotion/react': ^11.0.0
+      '@emotion/styled': ^11.0.0
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@emotion/react': registry.npmjs.org/@emotion/react@11.11.1(@types/react@18.2.37)(react@18.2.0)
+      '@emotion/styled': registry.npmjs.org/@emotion/styled@11.11.0(@emotion/react@11.11.1)(@types/react@18.2.37)(react@18.2.0)
+      react: registry.npmjs.org/react@18.2.0
+    dev: false
+
   registry.npmjs.org/@babel/code-frame@7.22.13:
     resolution: {integrity: sha512-XktuhWlJ5g+3TJXc5upd9Ks1HutSArik6jf2eAjYFyIOf4ej3RN+184cZbzDvbPnuTJIUhPKKJE3cIsYTiAT3w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@babel/code-frame/-/code-frame-7.22.13.tgz}
     name: '@babel/code-frame'
@@ -299,6 +326,14 @@ packages:
     dev: false
     optional: true
 
+  registry.npmjs.org/@emotion/is-prop-valid@1.2.1:
+    resolution: {integrity: sha512-61Mf7Ufx4aDxx1xlDeOm8aFFigGHE4z+0sKCa+IHCeZKiyP9RLD0Mmx7m8b9/Cf37f7NAvQOOJAbQQGVr5uERw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-1.2.1.tgz}
+    name: '@emotion/is-prop-valid'
+    version: 1.2.1
+    dependencies:
+      '@emotion/memoize': registry.npmjs.org/@emotion/memoize@0.8.1
+    dev: false
+
   registry.npmjs.org/@emotion/memoize@0.7.4:
     resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.4.tgz}
     name: '@emotion/memoize'
@@ -353,6 +388,30 @@ packages:
     resolution: {integrity: sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@emotion/sheet/-/sheet-1.2.2.tgz}
     name: '@emotion/sheet'
     version: 1.2.2
+    dev: false
+
+  registry.npmjs.org/@emotion/styled@11.11.0(@emotion/react@11.11.1)(@types/react@18.2.37)(react@18.2.0):
+    resolution: {integrity: sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@emotion/styled/-/styled-11.11.0.tgz}
+    id: registry.npmjs.org/@emotion/styled/11.11.0
+    name: '@emotion/styled'
+    version: 11.11.0
+    peerDependencies:
+      '@emotion/react': ^11.0.0-rc.0
+      '@types/react': '*'
+      react: '>=16.8.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+    dependencies:
+      '@babel/runtime': registry.npmjs.org/@babel/runtime@7.23.2
+      '@emotion/babel-plugin': registry.npmjs.org/@emotion/babel-plugin@11.11.0
+      '@emotion/is-prop-valid': registry.npmjs.org/@emotion/is-prop-valid@1.2.1
+      '@emotion/react': registry.npmjs.org/@emotion/react@11.11.1(@types/react@18.2.37)(react@18.2.0)
+      '@emotion/serialize': registry.npmjs.org/@emotion/serialize@1.1.2
+      '@emotion/use-insertion-effect-with-fallbacks': registry.npmjs.org/@emotion/use-insertion-effect-with-fallbacks@1.0.1(react@18.2.0)
+      '@emotion/utils': registry.npmjs.org/@emotion/utils@1.2.1
+      '@types/react': registry.npmjs.org/@types/react@18.2.37
+      react: registry.npmjs.org/react@18.2.0
     dev: false
 
   registry.npmjs.org/@emotion/unitless@0.8.1:
@@ -1122,6 +1181,12 @@ packages:
       '@types/node': registry.npmjs.org/@types/node@20.9.1
     dev: true
 
+  registry.npmjs.org/@types/js-cookie@2.2.7:
+    resolution: {integrity: sha512-aLkWa0C0vO5b4Sr798E26QgOkss68Un0bLjs7u9qxzPT5CG+8DuNTffWES58YzJs3hrVAOs1wonycqEBqNJubA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/js-cookie/-/js-cookie-2.2.7.tgz}
+    name: '@types/js-cookie'
+    version: 2.2.7
+    dev: false
+
   registry.npmjs.org/@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz}
     name: '@types/json5'
@@ -1370,6 +1435,34 @@ packages:
       debug: registry.npmjs.org/debug@4.3.4
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  registry.npmjs.org/ahooks-v3-count@1.0.0:
+    resolution: {integrity: sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/ahooks-v3-count/-/ahooks-v3-count-1.0.0.tgz}
+    name: ahooks-v3-count
+    version: 1.0.0
+    dev: false
+
+  registry.npmjs.org/ahooks@3.7.8(react@18.2.0):
+    resolution: {integrity: sha512-e/NMlQWoCjaUtncNFIZk3FG1ImSkV/JhScQSkTqnftakRwdfZWSw6zzoWSG9OMYqPNs2MguDYBUFFC6THelWXA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/ahooks/-/ahooks-3.7.8.tgz}
+    id: registry.npmjs.org/ahooks/3.7.8
+    name: ahooks
+    version: 3.7.8
+    engines: {node: '>=8.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': registry.npmjs.org/@babel/runtime@7.23.2
+      '@types/js-cookie': registry.npmjs.org/@types/js-cookie@2.2.7
+      ahooks-v3-count: registry.npmjs.org/ahooks-v3-count@1.0.0
+      dayjs: registry.npmjs.org/dayjs@1.11.10
+      intersection-observer: registry.npmjs.org/intersection-observer@0.12.2
+      js-cookie: registry.npmjs.org/js-cookie@2.2.1
+      lodash: registry.npmjs.org/lodash@4.17.21
+      react: registry.npmjs.org/react@18.2.0
+      resize-observer-polyfill: registry.npmjs.org/resize-observer-polyfill@1.5.1
+      screenfull: registry.npmjs.org/screenfull@5.2.0
+      tslib: registry.npmjs.org/tslib@2.6.2
     dev: false
 
   registry.npmjs.org/ajv@6.12.6:
@@ -3134,6 +3227,12 @@ packages:
       side-channel: registry.npmjs.org/side-channel@1.0.4
     dev: true
 
+  registry.npmjs.org/intersection-observer@0.12.2:
+    resolution: {integrity: sha512-7m1vEcPCxXYI8HqnL8CKI6siDyD+eIWSwgB3DZA+ZTogxk9I4CDnj4wilt9x/+/QbHI4YG5YZNmC6458/e9Ktg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/intersection-observer/-/intersection-observer-0.12.2.tgz}
+    name: intersection-observer
+    version: 0.12.2
+    dev: false
+
   registry.npmjs.org/is-array-buffer@3.0.2:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/is-array-buffer/-/is-array-buffer-3.0.2.tgz}
     name: is-array-buffer
@@ -3396,6 +3495,12 @@ packages:
     dependencies:
       '@types/react': registry.npmjs.org/@types/react@18.2.37
       react: registry.npmjs.org/react@18.2.0
+    dev: false
+
+  registry.npmjs.org/js-cookie@2.2.1:
+    resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz}
+    name: js-cookie
+    version: 2.2.1
     dev: false
 
   registry.npmjs.org/js-tokens@4.0.0:
@@ -4313,6 +4418,12 @@ packages:
       set-function-name: registry.npmjs.org/set-function-name@2.0.1
     dev: true
 
+  registry.npmjs.org/resize-observer-polyfill@1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz}
+    name: resize-observer-polyfill
+    version: 1.5.1
+    dev: false
+
   registry.npmjs.org/resolve-from@4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz}
     name: resolve-from
@@ -4427,6 +4538,13 @@ packages:
     version: 0.23.0
     dependencies:
       loose-envify: registry.npmjs.org/loose-envify@1.4.0
+    dev: false
+
+  registry.npmjs.org/screenfull@5.2.0:
+    resolution: {integrity: sha512-9BakfsO2aUQN2K9Fdbj87RJIEZ82Q9IGim7FqM5OsebfoFC6ZHXgDq/KvniuLTPdeM8wY2o6Dj3WQ7KeQCj3cA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/screenfull/-/screenfull-5.2.0.tgz}
+    name: screenfull
+    version: 5.2.0
+    engines: {node: '>=0.10.0'}
     dev: false
 
   registry.npmjs.org/semver@6.3.1:

@@ -1,7 +1,7 @@
 'use client'
 
-import { toSafeInteger, uniq } from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import { cloneDeep, toSafeInteger, uniq } from 'lodash'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Tweet } from 'react-tweet'
 import localforage from 'localforage'
 import cx from 'classnames'
@@ -9,15 +9,17 @@ import styles from './index.module.scss'
 import { useInView } from 'react-intersection-observer'
 import { useProgress } from '@/store/progress'
 import { ErrorBoundary } from 'react-error-boundary'
+import { IAdvancedConfigs } from '../Contents/interface'
 
 interface ITabsProps {
   tweetIds?: string[]
+  advancedConfigs?: IAdvancedConfigs
 }
 
-export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
+export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   const ids = tweetIds
 
-  const { isRead, markAsRead } = useRead()
+  const { isRead, markAsRead, getSnapshot } = useRead()
   const { done } = useProgress()
 
   useEffect(() => {
@@ -25,6 +27,28 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
   }, [tweetIds])
 
   const [errorIdxs, setErrorIdxs] = useState<number[]>([])
+
+  const readIdsSnapshotRef = useRef<string[]>()
+  useEffect(() => {
+    const func = async () => {
+      const snapshot = await getSnapshot()
+      readIdsSnapshotRef.current = snapshot
+    }
+    func()
+  }, [])
+
+  const hideRead = advancedConfigs?.hideRead
+
+  const idFilter = (ids: string[]) => {
+    if (!hideRead) {
+      return ids
+    }
+    const snapshot = readIdsSnapshotRef.current
+    if (snapshot === undefined) {
+      return []
+    }
+    return ids.filter((id) => !snapshot.includes(id))
+  }
 
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>
@@ -34,7 +58,7 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
     <div>
       <div className={cx('flex flex-col w-full')}>
         <div>
-          {ids.map((id, idx) => {
+          {idFilter(ids).map((id, idx) => {
             const isNextError = errorIdxs.includes(idx + 1)
             return (
               <div className={cx('flex relative w-full')} key={id}>
@@ -206,6 +230,10 @@ function useRead() {
     markAsRead: async (id: string) => {
       await setId(id)
     },
+    getSnapshot: async () => {
+      const currentTimeStore = await getStore()
+      return cloneDeep(currentTimeStore || [])
+    }
   }
 }
 

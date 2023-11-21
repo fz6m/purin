@@ -1,3 +1,5 @@
+'use client'
+
 import styles from './index.module.scss'
 import cx from 'classnames'
 

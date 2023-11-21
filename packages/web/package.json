@@ -11,9 +11,13 @@
     "build:og": "tsx ./scripts/og-build.ts"
   },
   "dependencies": {
+    "@anatoliygatt/heart-switch": "^1.0.13",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@purin/db": "workspace:*",
     "@vercel/edge-config": "^0.4.1",
     "@vercel/kv": "^1.0.0",
+    "ahooks": "^3.7.8",
     "classnames": "^2.3.2",
     "dayjs": "^1.11.10",
     "framer-motion": "^10.16.5",
