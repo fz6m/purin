@@ -24,6 +24,8 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
     done()
   }, [tweetIds])
 
+  const [errorIdxs, setErrorIdxs] = useState<number[]>([])
+
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>
   }
@@ -33,9 +35,19 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
       <div className={cx('flex flex-col w-full')}>
         <div>
           {ids.map((id, idx) => {
+            const isNextError = errorIdxs.includes(idx + 1)
             return (
               <div className={cx('flex relative w-full')} key={id}>
-                <ErrorBoundary fallback={<TweetError id={id} idx={idx} />}>
+                <ErrorBoundary
+                  onError={() => {
+                    setErrorIdxs((prev) => {
+                      return uniq([...prev, idx])
+                    })
+                  }}
+                  fallback={
+                    <TweetError id={id} idx={idx} isNextError={isNextError} />
+                  }
+                >
                   <LazyTweet
                     id={id}
                     isRead={isRead(id)}
@@ -64,15 +76,27 @@ export const Tabs = ({ tweetIds = [] }: ITabsProps) => {
   )
 }
 
-function TweetError({ id, idx }: { id: string, idx: number }) {
+function TweetError({
+  id,
+  idx,
+  isNextError,
+}: {
+  id: string
+  idx: number
+  isNextError?: boolean
+}) {
   const isFirst = idx === 0
+
   return (
-    <div className={cx(
-      'flex justify-center items-center',
-      'py-3 px-4',
-      isFirst && 'mt-3',
-      'border rounded-lg border-slate-300',
-    )}>
+    <div
+      className={cx(
+        'flex justify-center items-center',
+        'py-3 px-4',
+        isFirst && 'mt-3',
+        'border rounded-lg border-slate-300',
+        isNextError && 'mb-3',
+      )}
+    >
       {`🟡 Oops, something went wrong, maybe tweet is deleted.`}
       <a
         className={cx('pl-3', 'text-blue-500 font-medium')}
@@ -151,7 +175,7 @@ function LazyTweet({
 const LS_KEY = 'purin-explorer-read-tweets_v1'
 // 5 MB / (64bit max size length)
 const LS_MAX = toSafeInteger(
-  ((5 * 1024 * 1024) - 4 /* quotes */) / (20 + 2 /* quotes */ + 1 /* comma */)
+  (5 * 1024 * 1024 - 4) /* quotes */ / (20 + 2 /* quotes */ + 1) /* comma */,
 )
 function useRead() {
   const getStore = useCallback(async () => {
