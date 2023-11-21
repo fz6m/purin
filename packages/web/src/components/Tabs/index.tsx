@@ -10,6 +10,9 @@ import { useInView } from 'react-intersection-observer'
 import { useProgress } from '@/store/progress'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IAdvancedConfigs } from '../Contents/interface'
+import { useShortcut } from '@/hooks/useShortcut'
+import { EHotkeys } from '@/constants'
+import { toast } from 'sonner'
 
 interface ITabsProps {
   tweetIds?: string[]
@@ -39,6 +42,9 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   }, [])
 
   const idFilter = (originIds: string[]) => {
+    if (!originIds?.length) {
+      return []
+    }
     const hideRead = advancedConfigs?.hideRead
     const hideReadFilter = (ids: string[]) => {
       if (!hideRead) {
@@ -60,6 +66,16 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
     return hideErrorFilter(hideReadFilter(originIds))
   }
 
+  const markAllAsRead = () => {
+    toast.success('Mark all as read')
+    markAsRead(ids)
+  }
+
+  useShortcut(EHotkeys.markAllAsRead, markAllAsRead)
+
+  const finalIds = idFilter(ids)
+  const hideTweetCounts = ids.length - finalIds.length
+
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>
   }
@@ -68,7 +84,14 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
     <div>
       <div className={cx('flex flex-col w-full')}>
         <div>
-          {idFilter(ids).map((id, idx) => {
+          {!finalIds?.length && (
+            <div
+              className={cx(
+                'my-2 px-1 text-lg text-slate-500 italic font-medium',
+              )}
+            >{`No tweets need to be displayed.`}</div>
+          )}
+          {finalIds.map((id, idx) => {
             const isNextError = errorIdxs.includes(idx + 1)
             const isFirst = idx === 0
             const isLast = idx === ids.length - 1
@@ -113,6 +136,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
           {`Total`}
           <span className={cx('text-xl px-2')}>{`${ids.length}`}</span>
           {`tweets`}
+          {hideTweetCounts > 0 && ` (Hide ${hideTweetCounts} tweets)`}
         </div>
       </div>
     </div>
@@ -232,8 +256,9 @@ function useRead() {
     }
     func()
   }, [])
-  const setId = async (id: string) => {
-    const newList = uniq([id, ...(store || [])]).slice(0, LS_MAX)
+  const setId = async (id: string | string[]) => {
+    const idAsArray = Array.isArray(id) ? id : [id]
+    const newList = uniq([...idAsArray, ...(store || [])]).slice(0, LS_MAX)
     setStore(newList)
     await localforage.setItem(LS_KEY, newList)
   }
@@ -244,7 +269,7 @@ function useRead() {
       }
       return store.includes(id)
     },
-    markAsRead: async (id: string) => {
+    markAsRead: async (id: string | string[]) => {
       await setId(id)
     },
     getSnapshot: async () => {

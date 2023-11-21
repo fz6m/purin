@@ -5,6 +5,8 @@ import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { motion } from 'framer-motion'
+import { useShortcut } from '@/hooks/useShortcut'
+import { EHotkeys } from '@/constants'
 
 export const BackTop = () => {
   const [isShow, setIsShow] = useState(false)
@@ -28,6 +30,8 @@ export const BackTop = () => {
       behavior: 'smooth',
     })
   }, [])
+
+  useShortcut(EHotkeys.backTop, onTop)
 
   return (
     <div

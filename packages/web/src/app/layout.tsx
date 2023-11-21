@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { SEO, getFinalDescription, getFinalTitle } from '@/components/SEO'
 import { meta } from '@/constants/metadata'
 import { JsonLD } from '@/components/SEO/JsonLD'
+import { GlobalToaster } from '@/components/Toaster'
 
 export const metadata: Metadata = {
   title: getFinalTitle(meta.title),
@@ -76,6 +77,7 @@ export default function RootLayout({
       <JsonLD title={meta.title} />
       <body className={cx(playFont.variable, workFont.variable)}>
         {children}
+        <GlobalToaster />
       </body>
     </html>
   )
