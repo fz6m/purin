@@ -1,6 +1,6 @@
 'use client'
 
-import { uniq } from 'lodash'
+import { toSafeInteger, uniq } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { Tweet } from 'react-tweet'
 import localforage from 'localforage'
@@ -149,7 +149,10 @@ function LazyTweet({
 }
 
 const LS_KEY = 'purin-explorer-read-tweets_v1'
-const LS_MAX = 100
+// 5 MB / (64bit max size length)
+const LS_MAX = toSafeInteger(
+  ((5 * 1024 * 1024) - 4 /* quotes */) / (20 + 2 /* quotes */ + 1 /* comma */)
+)
 function useRead() {
   const getStore = useCallback(async () => {
     const lists = (await localforage.getItem(LS_KEY)) as string[] | undefined
