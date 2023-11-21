@@ -60,6 +60,8 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
         <div>
           {idFilter(ids).map((id, idx) => {
             const isNextError = errorIdxs.includes(idx + 1)
+            const isFirst = idx === 0
+            const isLast = idx === ids.length - 1
             return (
               <div className={cx('flex relative w-full')} key={id}>
                 <ErrorBoundary
@@ -69,7 +71,11 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
                     })
                   }}
                   fallback={
-                    <TweetError id={id} idx={idx} isNextError={isNextError} />
+                    <TweetError
+                      id={id}
+                      className={cx(isFirst && 'mt-3', isLast && 'mb-3')}
+                      isNextError={isNextError}
+                    />
                   }
                 >
                   <LazyTweet
@@ -102,21 +108,20 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
 
 function TweetError({
   id,
-  idx,
   isNextError,
+  className
 }: {
   id: string
-  idx: number
   isNextError?: boolean
+  className?: string
 }) {
-  const isFirst = idx === 0
 
   return (
     <div
       className={cx(
         'flex justify-center items-center',
         'py-3 px-4',
-        isFirst && 'mt-3',
+        className,
         'border rounded-lg border-slate-300',
         isNextError && 'mb-3',
       )}
@@ -233,7 +238,7 @@ function useRead() {
     getSnapshot: async () => {
       const currentTimeStore = await getStore()
       return cloneDeep(currentTimeStore || [])
-    }
+    },
   }
 }
 
