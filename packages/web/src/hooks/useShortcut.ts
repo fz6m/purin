@@ -11,5 +11,5 @@ export const useShortcut = (key: string, callback: () => void) => {
     return () => {
       hotkeys.unbind(key)
     }
-  }, [])
+  }, [key, callback])
 }
