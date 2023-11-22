@@ -26,16 +26,7 @@ function SafeImage(props: ImageProps) {
       img = null
     }
   }, [])
-  return (
-    <img
-      {...props}
-      src={
-        error
-          ? fallbackCover
-          : props.src
-      }
-    />
-  )
+  return <img {...props} src={error ? fallbackCover : props.src} />
 }
 
 function ListOption({ data }: { data: IListItem }) {
@@ -103,6 +94,8 @@ export const ListSelect = ({
     <div className={cx('pt-5', 'z-20 relative')}>
       <Suspense>
         <Select
+          autoFocus={false}
+          isSearchable={false}
           value={seletced}
           placeholder="Please select a list"
           options={options}

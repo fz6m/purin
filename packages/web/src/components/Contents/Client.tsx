@@ -70,31 +70,15 @@ export const Client = ({
     })
   }
 
-  const keyForTabs = `${finalList}-${finalDate}`
-
   return (
     <Provider>
-      <ListSelect
-        key={finalList}
-        list={allList}
-        active={finalList}
-        oldUrl={oldUrl}
-      />
+      <ListSelect list={allList} active={finalList} oldUrl={oldUrl} />
       <AdvancedConfigs
         configs={advancedConfigs}
         onChange={onAdvancedConfigsChange}
       />
-      <DateSwitch
-        key={finalDate}
-        oldUrl={oldUrl}
-        active={finalDate}
-        options={dateOptions}
-      />
-      <Tabs
-        key={keyForTabs}
-        advancedConfigs={advancedConfigs}
-        tweetIds={allTweets}
-      />
+      <DateSwitch oldUrl={oldUrl} active={finalDate} options={dateOptions} />
+      <Tabs advancedConfigs={advancedConfigs} tweetIds={allTweets} />
     </Provider>
   )
 }

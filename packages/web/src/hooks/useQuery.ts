@@ -19,6 +19,7 @@ export const useQuery = (oldUrl: string) => {
     const pushPath = `${urlParsed.pathname}?${newSearch}`
     // https://github.com/vercel/next.js/issues/28778#issuecomment-1686854968
     router.push(pushPath, { scroll: false })
+    router.refresh()
   }
 
   return {
