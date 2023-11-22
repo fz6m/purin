@@ -1,7 +1,7 @@
 'use client'
 
 import { cloneDeep, toSafeInteger, uniq } from 'lodash'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Tweet } from 'react-tweet'
 import localforage from 'localforage'
 import cx from 'classnames'
@@ -13,7 +13,6 @@ import { IAdvancedConfigs } from '../Contents/interface'
 import { useShortcut } from '@/hooks/useShortcut'
 import { EHotkeys } from '@/constants'
 import { toast } from 'sonner'
-import { CardioLoading } from '../Contents/CardioLoading'
 
 interface ITabsProps {
   tweetIds?: string[]
@@ -33,16 +32,14 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   const [errorIdxs, setErrorIdxs] = useState<number[]>([])
   const [errorIds, setErrorIds] = useState<string[]>([])
 
-  const readIdsSnapshotRef = useRef<string[]>()
-  const [isSnapshotLoaded, setIsSnapshotLoaded] = useState(false)
+  const [snapshot, setSnapshot] = useState<string[]>([])
   useEffect(() => {
     const func = async () => {
-      const snapshot = await getSnapshot()
-      readIdsSnapshotRef.current = snapshot
-      setIsSnapshotLoaded(true)
+      const _snapshot = await getSnapshot()
+      setSnapshot(_snapshot)
     }
     func()
-  }, [])
+  }, [tweetIds])
 
   const idFilter = (originIds: string[]) => {
     if (!originIds?.length) {
@@ -53,7 +50,6 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
       if (!hideRead) {
         return ids
       }
-      const snapshot = readIdsSnapshotRef.current
       if (snapshot === undefined) {
         return []
       }
@@ -66,7 +62,8 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
       }
       return ids.filter((id) => !errorIds.includes(id))
     }
-    return hideErrorFilter(hideReadFilter(originIds))
+    const result = hideErrorFilter(hideReadFilter(originIds))
+    return result
   }
 
   const markAllAsRead = () => {
@@ -78,10 +75,6 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
 
   const finalIds = idFilter(ids)
   const hideTweetCounts = ids.length - finalIds.length
-
-  if (!isSnapshotLoaded) {
-    return <CardioLoading key='tabs' />
-  }
 
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>

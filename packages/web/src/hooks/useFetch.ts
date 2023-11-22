@@ -1,6 +1,8 @@
 import 'server-only'
 import { useUrl } from '@/hooks/useUrl'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 export const useFetch = <T = any>(path: string) => {
   const parsed = useUrl()
   const fullUrl = `${parsed?.protocol}//${parsed?.host}${path}`
@@ -13,8 +15,17 @@ export const useFetch = <T = any>(path: string) => {
       }
       try {
         const data = await fetch(fullUrl, {
+          ...(isDev
+            ? {
+                cache: 'no-store',
+              }
+            : {}),
           next: {
-            revalidate: 3600,
+            ...(isDev
+              ? {}
+              : {
+                  revalidate: 3600,
+                }),
             // 🤬 https://github.com/vercel/next.js/issues/55960
             // tags: [path],
           },

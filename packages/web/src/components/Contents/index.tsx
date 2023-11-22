@@ -6,16 +6,10 @@ import { getCurrentDateLabel } from '@/utils/dayjs'
 import dynamic from 'next/dynamic'
 import { CardioLoading } from './CardioLoading'
 
-const Client = dynamic(
-  () =>
-    import('./Client').then(({ Client }) => ({
-      default: Client,
-    })),
-  {
-    ssr: false,
-    loading: () => <CardioLoading key="client" />,
-  },
-)
+const Client = dynamic(() => import('./Client'), {
+  ssr: false,
+  loading: () => <CardioLoading key="client" />,
+})
 
 interface IContentsProps {
   list?: string
