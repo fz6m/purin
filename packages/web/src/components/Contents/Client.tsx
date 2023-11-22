@@ -24,7 +24,7 @@ interface IClientProps {
 const ADAVANCED_CONFIGS_KEY = `purin_advanced_configs_v1`
 const defaultAdvancedConfigs: IAdvancedConfigs = {
   hideRead: false,
-  hideError: false
+  hideError: false,
 }
 
 export const Client = ({
@@ -70,15 +70,31 @@ export const Client = ({
     })
   }
 
+  const keyForTabs = `${finalList}-${finalDate}`
+
   return (
     <Provider>
-      <ListSelect list={allList} active={finalList} oldUrl={oldUrl} />
+      <ListSelect
+        key={finalList}
+        list={allList}
+        active={finalList}
+        oldUrl={oldUrl}
+      />
       <AdvancedConfigs
         configs={advancedConfigs}
         onChange={onAdvancedConfigsChange}
       />
-      <DateSwitch oldUrl={oldUrl} active={finalDate} options={dateOptions} />
-      <Tabs advancedConfigs={advancedConfigs} tweetIds={allTweets} />
+      <DateSwitch
+        key={finalDate}
+        oldUrl={oldUrl}
+        active={finalDate}
+        options={dateOptions}
+      />
+      <Tabs
+        key={keyForTabs}
+        advancedConfigs={advancedConfigs}
+        tweetIds={allTweets}
+      />
     </Provider>
   )
 }

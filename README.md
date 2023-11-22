@@ -17,6 +17,10 @@ X(Twitter) list collector
     |`NEXT_APP_TWEETS_UPDATE_TOKEN`|Manually update token for tweet data api|
     |`DIRECT_URL`|Postgres connection string (e.g. [supabase](https://supabase.com/) or self-hosted)|
     |`DATABASE_URL`|Postgres connection pooling string (or same as `DIRECT_URL`)|
+  
+    Build command: `pnpm build:ci`
+
+    Root dir: `packages/web`
 
 2. Create a `Vercel Edge config` storage and connect to the project.
 
