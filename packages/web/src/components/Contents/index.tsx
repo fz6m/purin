@@ -13,7 +13,7 @@ const Client = dynamic(
     })),
   {
     ssr: false,
-    loading: () => <CardioLoading />,
+    loading: () => <CardioLoading key="client" />,
   },
 )
 

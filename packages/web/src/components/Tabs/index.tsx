@@ -13,6 +13,7 @@ import { IAdvancedConfigs } from '../Contents/interface'
 import { useShortcut } from '@/hooks/useShortcut'
 import { EHotkeys } from '@/constants'
 import { toast } from 'sonner'
+import { CardioLoading } from '../Contents/CardioLoading'
 
 interface ITabsProps {
   tweetIds?: string[]
@@ -33,10 +34,12 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   const [errorIds, setErrorIds] = useState<string[]>([])
 
   const readIdsSnapshotRef = useRef<string[]>()
+  const [isSnapshotLoaded, setIsSnapshotLoaded] = useState(false)
   useEffect(() => {
     const func = async () => {
       const snapshot = await getSnapshot()
       readIdsSnapshotRef.current = snapshot
+      setIsSnapshotLoaded(true)
     }
     func()
   }, [])
@@ -75,6 +78,10 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
 
   const finalIds = idFilter(ids)
   const hideTweetCounts = ids.length - finalIds.length
+
+  if (!isSnapshotLoaded) {
+    return <CardioLoading key='tabs' />
+  }
 
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>

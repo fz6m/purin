@@ -67,7 +67,7 @@ export default async function Home({
           />
           <span>{`Explorer`}</span>
         </h1>
-        <Suspense fallback={<CardioLoading />}>
+        <Suspense fallback={<CardioLoading key='page' />}>
           <Contents list={reqList} date={reqDate} />
         </Suspense>
       </div>
