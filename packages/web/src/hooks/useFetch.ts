@@ -19,16 +19,18 @@ export const useFetch = <T = any>(path: string) => {
             ? {
                 cache: 'no-store',
               }
-            : {}),
-          next: {
-            ...(isDev
-              ? {}
-              : {
-                  revalidate: 3600,
-                }),
-            // 🤬 https://github.com/vercel/next.js/issues/55960
-            // tags: [path],
-          },
+            : {
+              cache: 'no-cache'
+            }),
+          // next: {
+          //   ...(isDev
+          //     ? {}
+          //     : {
+          //         revalidate: 3600,
+          //       }),
+          //   // 🤬 https://github.com/vercel/next.js/issues/55960
+          //   // tags: [path],
+          // },
           ...params,
         })
         if (data?.ok) {
