@@ -1,4 +1,5 @@
 'use client'
+import { useBreakpoint } from '@/hooks/useBreakpoint'
 import React, { ReactNode, useId } from 'react'
 import { Tooltip as ReactTooltip } from 'react-tooltip'
 
@@ -15,18 +16,22 @@ export const Tooltip = ({
 >) => {
   const id = useId()
 
+  const { isMobile } = useBreakpoint()
+
   return (
     <>
       <div data-tooltip-id={id}>{children}</div>
-      <ReactTooltip
-        id={id}
-        style={{
-          zIndex: 100,
-        }}
-        {...props}
-      >
-        {content}
-      </ReactTooltip>
+      {!isMobile && (
+        <ReactTooltip
+          id={id}
+          style={{
+            zIndex: 100,
+          }}
+          {...props}
+        >
+          {content}
+        </ReactTooltip>
+      )}
     </>
   )
 }

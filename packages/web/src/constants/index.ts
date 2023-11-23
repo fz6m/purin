@@ -13,3 +13,7 @@ export enum EHotkeys {
   hideAllReads = 'r',
   hideAllErrors = 'e',
 }
+
+export enum EClassHook {
+  markAllAsRead = 'J_mark-all-as-read',
+}

@@ -10,7 +10,7 @@ import { useInView } from 'react-intersection-observer'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IAdvancedConfigs } from '../Contents/interface'
 import { useShortcut } from '@/hooks/useShortcut'
-import { EHotkeys } from '@/constants'
+import { EClassHook, EHotkeys } from '@/constants'
 import { toast } from 'sonner'
 
 interface ITabsProps {
@@ -118,6 +118,10 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
               </div>
             )
           })}
+          <div
+            onClick={markAllAsRead}
+            className={cx(EClassHook.markAllAsRead, 'hidden')}
+          />
         </div>
         <div
           className={cx(

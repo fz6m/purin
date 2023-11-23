@@ -2,7 +2,7 @@ import cx from 'classnames'
 import Image from 'next/image'
 import xIcon from '@/assets/icons/x.svg'
 import { Footer } from '@/components/Footer'
-import { BackTop } from '@/components/BackTop'
+import { FloatButtons } from '@/components/FloatButtons'
 import { isDateValid, isListValid } from '@/service/schema'
 import { redirect } from 'next/navigation'
 import { Contents } from '@/components/Contents'
@@ -33,7 +33,7 @@ export default async function Home({
   }
 
   return (
-    <div className={cx('min-h-screen w-full')}>
+    <div className={cx('min-h-screen w-full', 'overflow-x-hidden')}>
       <div
         className={cx(
           'w-full',
@@ -68,7 +68,7 @@ export default async function Home({
         <Contents list={reqList} date={reqDate} />
       </div>
       <Footer />
-      <BackTop />
+      <FloatButtons />
     </div>
   )
 }
