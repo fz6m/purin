@@ -183,7 +183,7 @@ function LazyTweet({
   const [marked, setMarked] = useState(false)
 
   const { ref, inView } = useInView({
-    rootMargin: '30px 0px 30px 0px',
+    rootMargin: '100px 0px 100px 0px',
   })
 
   if (!inView) {
