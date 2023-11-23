@@ -10,4 +10,6 @@ export const DAY_LIMIT = 9
 export enum EHotkeys {
   backTop = 't',
   markAllAsRead = 'm',
+  hideAllReads = 'r',
+  hideAllErrors = 'e',
 }

@@ -108,6 +108,9 @@ importers:
       react-select:
         specifier: ^5.8.0
         version: registry.npmjs.org/react-select@5.8.0(@types/react@18.2.37)(react-dom@18.2.0)(react@18.2.0)
+      react-tooltip:
+        specifier: ^5.24.0
+        version: registry.npmjs.org/react-tooltip@5.24.0(react-dom@18.2.0)(react@18.2.0)
       react-top-loading-bar:
         specifier: ^2.3.1
         version: registry.npmjs.org/react-top-loading-bar@2.3.1(react@18.2.0)
@@ -4327,6 +4330,21 @@ packages:
       use-isomorphic-layout-effect: registry.npmjs.org/use-isomorphic-layout-effect@1.1.2(@types/react@18.2.37)(react@18.2.0)
     transitivePeerDependencies:
       - '@types/react'
+    dev: false
+
+  registry.npmjs.org/react-tooltip@5.24.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-HjstgpOrUwP4eN6mHU4EThpbxVuKO5SvqumRt1aAcPq0ya+pIVVxlwltndtdIIMBJ7w3jnN05vNfcfh2sxE2mQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/react-tooltip/-/react-tooltip-5.24.0.tgz}
+    id: registry.npmjs.org/react-tooltip/5.24.0
+    name: react-tooltip
+    version: 5.24.0
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+    dependencies:
+      '@floating-ui/dom': registry.npmjs.org/@floating-ui/dom@1.5.3
+      classnames: registry.npmjs.org/classnames@2.3.2
+      react: registry.npmjs.org/react@18.2.0
+      react-dom: registry.npmjs.org/react-dom@18.2.0(react@18.2.0)
     dev: false
 
   registry.npmjs.org/react-top-loading-bar@2.3.1(react@18.2.0):
