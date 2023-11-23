@@ -1,7 +1,7 @@
 'use client'
 
 import { cloneDeep, toSafeInteger, uniq } from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Tweet } from 'react-tweet'
 import localforage from 'localforage'
 import cx from 'classnames'
@@ -12,6 +12,7 @@ import { IAdvancedConfigs } from '../Contents/interface'
 import { useShortcut } from '@/hooks/useShortcut'
 import { EClassHook, EHotkeys } from '@/constants'
 import { toast } from 'sonner'
+import { useSize } from 'ahooks'
 
 interface ITabsProps {
   tweetIds?: string[]
@@ -187,8 +188,14 @@ function LazyTweet({
   const [marked, setMarked] = useState(false)
 
   const { ref, inView } = useInView({
-    rootMargin: '100px 0px 100px 0px',
+    rootMargin: '150px 0px 150px 0px',
   })
+
+  const tweetBoxRef = useRef<HTMLDivElement>(null!)
+  const size = useSize(tweetBoxRef);
+  const isOver = size?.width ? size?.width > window.innerWidth * 0.9 : false
+  const scale = (isOver && size?.width) ? (window.innerWidth * 0.9) / size?.width : 1
+  const needEatBottomMargin = -1 * ((size?.height || 0) * (1 - scale))
 
   if (!inView) {
     return (
@@ -226,7 +233,12 @@ function LazyTweet({
             setMarked(true)
             markAsRead(id)
           }}
-          className={cx('max-w-[550px]')}
+          ref={tweetBoxRef}
+          style={{
+            marginBottom: isOver ? needEatBottomMargin : undefined,
+            transform: isOver ? `scale(${scale})` : undefined,
+          }}
+          className={cx('max-w-[550px]', isOver && 's:origin-top-left')}
         >
           <Tweet id={id} />
         </div>
