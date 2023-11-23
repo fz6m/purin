@@ -26,7 +26,7 @@ const defaultAdvancedConfigs: IAdvancedConfigs = {
   hideError: false,
 }
 
-const Client = ({
+export const Client = ({
   allList,
   allTweets,
   finalList,
@@ -87,5 +87,3 @@ const Client = ({
     </>
   )
 }
-
-export default Client

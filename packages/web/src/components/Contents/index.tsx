@@ -3,7 +3,7 @@ import { useFetch } from '@/hooks/useFetch'
 import { IListItem } from '@/service/interface'
 import { useUrl } from '@/hooks/useUrl'
 import { getCurrentDateLabel } from '@/utils/dayjs'
-import Client from './Client'
+import { Client } from './Client'
 
 interface IContentsProps {
   list?: string
