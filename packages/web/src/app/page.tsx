@@ -6,8 +6,8 @@ import { FloatButtons } from '@/components/FloatButtons'
 import { isDateValid, isListValid } from '@/service/schema'
 import { redirect } from 'next/navigation'
 import { Contents } from '@/components/Contents'
-import { Suspense } from 'react'
-import { CardioLoading } from '@/components/Contents/CardioLoading'
+// import { Suspense } from 'react'
+// import { CardioLoading } from '@/components/Contents/CardioLoading'
 
 export default async function Home({
   searchParams,
@@ -67,9 +67,10 @@ export default async function Home({
           />
           <span>{`Explorer`}</span>
         </h1>
-        <Suspense fallback={<CardioLoading />}>
-          <Contents list={reqList} date={reqDate} />
-        </Suspense>
+        {/* FIXME: if use RSC suspense, it will never get resolved */}
+        {/* <Suspense fallback={<CardioLoading />}> */}
+        <Contents list={reqList} date={reqDate} />
+        {/* </Suspense> */}
       </div>
       <Footer />
       <FloatButtons />
