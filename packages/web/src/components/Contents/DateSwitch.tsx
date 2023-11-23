@@ -1,7 +1,6 @@
 'use client'
 
 import { useQuery } from '@/hooks/useQuery'
-import { useProgress } from '@/store/progress'
 import cx from 'classnames'
 import { ReactNode } from 'react'
 
@@ -20,7 +19,6 @@ export const DateSwitch = ({
   oldUrl: string
 }) => {
   const { changeQuery } = useQuery(oldUrl)
-  const { start } = useProgress()
 
   return (
     <div className={cx('flex align-center flex-wrap', 'pt-4 mb-1', 'gap-2')}>
@@ -30,7 +28,6 @@ export const DateSwitch = ({
           <button
             key={item.value}
             onClick={() => {
-              start()
               changeQuery({ date: item.value })
             }}
             className={cx(

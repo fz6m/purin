@@ -5,7 +5,6 @@ import { IListItem } from '@/service/interface'
 import { useQuery } from '@/hooks/useQuery'
 import React, { Suspense, useEffect, useState } from 'react'
 import styles from './index.module.scss'
-import { useProgress } from '@/store/progress'
 import { fallbackCover } from './fallbackCover'
 
 type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
@@ -75,7 +74,6 @@ export const ListSelect = ({
   oldUrl: string
 }) => {
   const { changeQuery } = useQuery(oldUrl)
-  const { start } = useProgress()
 
   const options = list.map((i) => {
     return {
@@ -102,7 +100,6 @@ export const ListSelect = ({
           onChange={(nv) => {
             if (nv) {
               setSelected(nv)
-              start()
               changeQuery({ list: nv.value })
             }
           }}

@@ -7,7 +7,6 @@ import localforage from 'localforage'
 import cx from 'classnames'
 import styles from './index.module.scss'
 import { useInView } from 'react-intersection-observer'
-import { useProgress } from '@/store/progress'
 import { ErrorBoundary } from 'react-error-boundary'
 import { IAdvancedConfigs } from '../Contents/interface'
 import { useShortcut } from '@/hooks/useShortcut'
@@ -23,11 +22,6 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   const ids = tweetIds
 
   const { isRead, markAsRead, getSnapshot } = useRead()
-  const { done } = useProgress()
-
-  useEffect(() => {
-    done()
-  }, [tweetIds])
 
   const [errorIdxs, setErrorIdxs] = useState<number[]>([])
   const [errorIds, setErrorIds] = useState<string[]>([])

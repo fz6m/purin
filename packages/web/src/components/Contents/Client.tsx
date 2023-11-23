@@ -6,8 +6,6 @@ import { DateSwitch, IOption } from './DateSwitch'
 import { ListSelect } from './ListSelect'
 import { IListItem } from '@/service/interface'
 import { getCurrentDayStartIns } from '@/utils/dayjs'
-// import { TopLoadingBar } from '../TopLoadingBar'
-import { Provider } from 'jotai'
 import { IAdvancedConfigs } from './interface'
 import { useLocalStorageState } from 'ahooks'
 import { cloneDeep } from 'lodash'
@@ -71,7 +69,7 @@ const Client = ({
   }
 
   return (
-    <Provider>
+    <>
       <ListSelect list={allList} active={finalList} oldUrl={oldUrl} />
       <AdvancedConfigs
         configs={advancedConfigs}
@@ -79,7 +77,7 @@ const Client = ({
       />
       <DateSwitch oldUrl={oldUrl} active={finalDate} options={dateOptions} />
       <Tabs advancedConfigs={advancedConfigs} tweetIds={allTweets} />
-    </Provider>
+    </>
   )
 }
 
