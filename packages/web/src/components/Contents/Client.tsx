@@ -10,6 +10,7 @@ import { IAdvancedConfigs } from './interface'
 import { useLocalStorageState } from 'ahooks'
 import { cloneDeep } from 'lodash'
 import { AdvancedConfigs } from './AdvancedConfigs'
+import { CardioLoading } from './CardioLoading'
 
 interface IClientProps {
   allList: IListItem[]
@@ -66,6 +67,12 @@ const Client = ({
         ...nvs,
       }
     })
+  }
+
+  const isServer = typeof window === 'undefined'
+
+  if (isServer) {
+    return <CardioLoading />
   }
 
   return (
