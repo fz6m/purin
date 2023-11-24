@@ -8,9 +8,12 @@ import { meta } from '@/constants/metadata'
 import { JsonLD } from '@/components/SEO/JsonLD'
 import { GlobalToaster } from '@/components/Toaster'
 
+const finalTitle = getFinalTitle(meta.title)
+const finalDescription = getFinalDescription(meta.title, meta.description)
+
 export const metadata: Metadata = {
-  title: getFinalTitle(meta.title),
-  description: getFinalDescription(meta.title, meta.description),
+  title: finalTitle,
+  description: finalDescription,
   icons: {
     apple: {
       url: '/apple-touch-icon-180x180.png',
@@ -53,6 +56,25 @@ export const metadata: Metadata = {
     name: meta.author,
   },
   keywords: meta.keywords,
+  openGraph: {
+    title: finalTitle,
+    type: 'website',
+    description: finalDescription,
+    locale: 'en',
+    images: {
+      width: 1200,
+      height: 630,
+      url: meta.og_image,
+    },
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: {
+      width: 1200,
+      height: 630,
+      url: meta.og_image,
+    }
+  }
 }
 
 export const viewport: Viewport = {

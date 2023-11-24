@@ -55,7 +55,7 @@ export const SEO = ({
       {/* not need preconnect */}
 
       <meta key="meta-title" name="title" content={finalTitle} />
-      <meta key="author" name="author" content={meta.author} />
+      {/* <meta key="author" name="author" content={meta.author} /> */}
       {/* <meta key="description" name="description" content={finalDescription} /> */}
       {/* <meta key="keyword" name="keyword" content={DATA.meta.keyword} /> */}
       {!!permalink && <link key="canonical" rel="canonical" href={permalink} />}
@@ -64,22 +64,22 @@ export const SEO = ({
       <link key="canonical" rel="canonical" href={permalink} />
       <meta key="robots" name="robots" content={robotDirectives} />
 
-      <meta key="og:type" property="og:type" content={ogType} />
+      {/* <meta key="og:type" property="og:type" content={ogType} /> */}
       <meta key="og:url" property="og:url" content={permalink} />
-      <meta key="og:title" property="og:title" content={finalTitle} />
+      {/* <meta key="og:title" property="og:title" content={finalTitle} /> */}
       {!!siteName?.length && (
         <meta key="og:site_name" property="og:site_name" content={siteName} />
       )}
-      <meta
+      {/* <meta
         key="og:description"
         property="og:description"
         content={finalDescription}
-      />
-      <meta key="og:locale" property="og:locale" content="en" />
-      {!!ogImage?.url && (
+      /> */}
+      {/* <meta key="og:locale" property="og:locale" content="en" /> */}
+      {/* {!!ogImage?.url && (
         <meta key="og:image" property="og:image" content={finalOgImage} />
-      )}
-      {!!ogImage?.width && (
+      )} */}
+      {/* {!!ogImage?.width && (
         <meta
           key="og:image:width"
           property="og:image:width"
@@ -92,13 +92,13 @@ export const SEO = ({
           property="og:image:height"
           content={ogImage.height.toString()}
         />
-      )}
+      )} */}
 
       {/* Twitter */}
-      {!!ogImage?.url && (
-        <meta key="twitter:image" name="twitter:image" content={ogImage.url} />
-      )}
-      <meta key="twitter:card" name="twitter:card" content={twitterCardType} />
+      {/* {!!ogImage?.url && (
+        <meta key="twitter:image" name="twitter:image" content={finalOgImage} />
+      )} */}
+      {/* <meta key="twitter:card" name="twitter:card" content={twitterCardType} /> */}
 
       {/* --- Mobile --- */}
       {/* disable iphone numebr auto link */}
