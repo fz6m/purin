@@ -3,5 +3,6 @@ export const meta = {
   description: 'X(Twitter) list collector',
   author: 'fz6m',
   keywords: ['X', 'Twitter', 'list', 'collector', 'explorer'].join(','),
-  og_image: '/og.png',
+  // FIXME: nextjs cannot auto add production domain as prefix, it will use preview env domain only
+  og_image: 'https://purin.sakina.moe/og.png',
 } as const
