@@ -48,7 +48,7 @@ export const FloatButtons = () => {
       <div className={cx(basePosition, 'bottom-10 s:bottom-3')}>
         <Tooltip
           place="left"
-          content={`Back to top (${toUpper(EHotkeys.backTop)})`}
+          content={isShow ? `Back to top (${toUpper(EHotkeys.backTop)})` : undefined}
         >
           <Btn
             isShow={isShow}
@@ -68,7 +68,7 @@ export const FloatButtons = () => {
       <div className={cx(basePosition, 'bottom-[6.4rem] s:bottom-[4.3rem]')}>
         <Tooltip
           place="left"
-          content={`Mark all as read (${toUpper(EHotkeys.markAllAsRead)})`}
+          content={isShow ? `Mark all as read (${toUpper(EHotkeys.markAllAsRead)})` : undefined}
         >
           <Btn
             isShow={isShow}

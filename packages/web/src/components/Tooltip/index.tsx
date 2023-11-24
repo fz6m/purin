@@ -10,9 +10,10 @@ export const Tooltip = ({
   content,
   ...props
 }: React.PropsWithChildren<
+  ToolTipProps & 
   {
-    content: ReactNode
-  } & ToolTipProps
+    content?: ReactNode
+  }
 >) => {
   const id = useId()
 
@@ -21,7 +22,7 @@ export const Tooltip = ({
   return (
     <>
       <div data-tooltip-id={id}>{children}</div>
-      {!isMobile && (
+      {!isMobile && content && (
         <ReactTooltip
           id={id}
           style={{
