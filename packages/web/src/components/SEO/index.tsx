@@ -61,15 +61,12 @@ export const SEO = ({
       {!!permalink && <link key="canonical" rel="canonical" href={permalink} />}
       <meta key="robots" name="robots" content={robotDirectives} />
 
-      <link key="canonical" rel="canonical" href={permalink} />
-      <meta key="robots" name="robots" content={robotDirectives} />
-
       {/* <meta key="og:type" property="og:type" content={ogType} /> */}
       <meta key="og:url" property="og:url" content={permalink} />
       {/* <meta key="og:title" property="og:title" content={finalTitle} /> */}
-      {!!siteName?.length && (
+      {/* {!!siteName?.length && (
         <meta key="og:site_name" property="og:site_name" content={siteName} />
-      )}
+      )} */}
       {/* <meta
         key="og:description"
         property="og:description"
