@@ -42,7 +42,10 @@ export const SEO = ({
     nofollow ? 'nofollow' : 'follow',
   ].join(',')
 
-  const permalink = useUrl()?.fullUrlWithoutSearch
+  const parsedUrl = useUrl()
+  const permalink = parsedUrl?.fullUrlWithoutSearch
+
+  const finalOgImage = `${parsedUrl!.siteUrl}${ogImage.url}`
 
   return (
     <head>
@@ -74,7 +77,7 @@ export const SEO = ({
       />
       <meta key="og:locale" property="og:locale" content="en" />
       {!!ogImage?.url && (
-        <meta key="og:image" property="og:image" content={ogImage.url} />
+        <meta key="og:image" property="og:image" content={finalOgImage} />
       )}
       {!!ogImage?.width && (
         <meta
