@@ -102,3 +102,22 @@ X(Twitter) list collector
      "cookie": "..."
    }
    ```
+
+   Supabase cron job example ([docs](https://supabase.com/docs/guides/functions/schedule-functions)) :
+
+   ```sql
+   -- select cron.unschedule('cron-vercel-sync');
+
+   select
+     cron.schedule(
+       'cron-vercel-sync',
+       '0 * * * *',
+       $$
+       select
+         net.http_get(
+             url:='https://deploy.domain.com/api/v1/tweets/update',
+             headers:='{ "Authorization": "Bearer NEXT_APP_TWEETS_UPDATE_TOKEN" }'::jsonb
+         ) as request_id;
+       $$
+     );
+   ```
