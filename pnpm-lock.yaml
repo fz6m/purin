@@ -18,11 +18,11 @@ importers:
 
   packages/db:
     specifiers:
-      '@prisma/client': 5.6.0
+      '@prisma/client': 5.7.0
       dotenv-cli: ^7.3.0
-      prisma: ^5.6.0
+      prisma: 5.7.0
     dependencies:
-      '@prisma/client': registry.npmjs.org/@prisma/client/5.6.0_prisma@5.7.0
+      '@prisma/client': registry.npmjs.org/@prisma/client/5.7.0_prisma@5.7.0
     devDependencies:
       dotenv-cli: registry.npmjs.org/dotenv-cli/7.3.0
       prisma: registry.npmjs.org/prisma/5.7.0
@@ -913,11 +913,11 @@ packages:
       fastq: registry.npmjs.org/fastq/1.15.0
     dev: true
 
-  registry.npmjs.org/@prisma/client/5.6.0_prisma@5.7.0:
-    resolution: {integrity: sha512-mUDefQFa1wWqk4+JhKPYq8BdVoFk9NFMBXUI8jAkBfQTtgx8WPx02U2HB/XbAz3GSUJpeJOKJQtNvaAIDs6sug==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@prisma/client/-/client-5.6.0.tgz}
-    id: registry.npmjs.org/@prisma/client/5.6.0
+  registry.npmjs.org/@prisma/client/5.7.0_prisma@5.7.0:
+    resolution: {integrity: sha512-cZmglCrfNbYpzUtz7HscVHl38e9CrUs31nrVoGUK1nIPXGgt8hT4jj2s657UXcNdQ/jBUxDgGmHyu2Nyrq1txg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@prisma/client/-/client-5.7.0.tgz}
+    id: registry.npmjs.org/@prisma/client/5.7.0
     name: '@prisma/client'
-    version: 5.6.0
+    version: 5.7.0
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
@@ -926,7 +926,6 @@ packages:
       prisma:
         optional: true
     dependencies:
-      '@prisma/engines-version': registry.npmjs.org/@prisma/engines-version/5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee
       prisma: registry.npmjs.org/prisma/5.7.0
     dev: false
 
@@ -934,12 +933,6 @@ packages:
     resolution: {integrity: sha512-tZ+MOjWlVvz1kOEhNYMa4QUGURY+kgOUBqLHYIV8jmCsMuvA1tWcn7qtIMLzYWCbDcQT4ZS8xDgK0R2gl6/0wA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@prisma/debug/-/debug-5.7.0.tgz}
     name: '@prisma/debug'
     version: 5.7.0
-
-  registry.npmjs.org/@prisma/engines-version/5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee:
-    resolution: {integrity: sha512-UoFgbV1awGL/3wXuUK3GDaX2SolqczeeJ5b4FVec9tzeGbSWJboPSbT0psSrmgYAKiKnkOPFSLlH6+b+IyOwAw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee.tgz}
-    name: '@prisma/engines-version'
-    version: 5.6.0-32.e95e739751f42d8ca026f6b910f5a2dc5adeaeee
-    dev: false
 
   registry.npmjs.org/@prisma/engines-version/5.7.0-41.79fb5193cf0a8fdbef536e4b4a159cad677ab1b9:
     resolution: {integrity: sha512-V6tgRVi62jRwTm0Hglky3Scwjr/AKFBFtS+MdbsBr7UOuiu1TKLPc6xfPiyEN1+bYqjEtjxwGsHgahcJsd1rNg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@prisma/engines-version/-/engines-version-5.7.0-41.79fb5193cf0a8fdbef536e4b4a159cad677ab1b9.tgz}
