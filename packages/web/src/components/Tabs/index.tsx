@@ -73,6 +73,8 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
   const finalIds = idFilter(ids)
   const hideTweetCounts = ids.length - finalIds.length
 
+  const [isShowTweetsList, setIsShowTweetsList] = useState(false)
+
   if (!ids?.length) {
     return <div className={cx('pt-2')}>{`No tweets found`}</div>
   }
@@ -132,15 +134,45 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
           className={cx(
             'text-lg text-slate-800 italic font-medium',
             'py-1 mt-[-0.25rem]',
-            'cursor-default',
+            'cursor-pointer select-none',
             'font-work',
+            'w-max'
           )}
+          onClick={() => {
+            setIsShowTweetsList((prev) => !prev)
+          }}
+          title={isShowTweetsList ? `Hide tweets id` : `Show tweets id`}
         >
           {`Total`}
           <span className={cx('text-xl px-2')}>{`${ids.length}`}</span>
           {`tweets`}
           {hideTweetCounts > 0 && ` (Hide ${hideTweetCounts} tweets)`}
         </div>
+        {isShowTweetsList && finalIds?.length && (
+          <div className={
+            cx('flex flex-col gap-2')
+          }>
+            {finalIds.map(id => {
+              const url = `https://twitter.com/name/status/${id}`
+              return (
+                <a
+                  key={id}
+                  className={cx(
+                    'pl-2',
+                    'text-blue-500 font-medium',
+                    'hover:underline visited:text-purple-600',
+                    'w-max'
+                  )}
+                  rel="noreferrer noopener"
+                  target={"_blank"}
+                  href={url}
+                >
+                  {id}
+                </a>
+              )
+            })}
+          </div>
+        )}
       </div>
     </div>
   )
