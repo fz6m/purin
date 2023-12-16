@@ -6,6 +6,7 @@ import { getCurrentDayStartIns } from '@/utils/dayjs'
 import { apiSend } from '@/utils/api'
 import { kv } from '@vercel/kv'
 import { get as edgeGet } from '@vercel/edge-config'
+import { IListItem } from '@/service/interface'
 
 interface IUpdateJson extends IXAuth {
   list: string
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
   const prevListAsString = `${prevGettedList}`
   const hasPrevList = prevGettedList && prevListAsString?.length
   let willGetList: string
-  const allList = await prisma.list.findMany()
+  const allList: IListItem[] = await prisma.list.findMany()
   const ids = allList.map((item) => item.id)
   if (!ids?.length) {
     return apiSend.error('list is empty')
