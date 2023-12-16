@@ -8,7 +8,7 @@
     "build": "pnpm build:deps && pnpm db:type:gen && pnpm --filter @purin/web build"
   },
   "engines": {
-    "node": ">=18",
+    "node": ">=18.17.0",
     "npm": "not supported, use pnpm",
     "yarn": "not supported, use pnpm"
   },
