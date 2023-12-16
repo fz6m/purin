@@ -61,6 +61,8 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
     return result
   }
 
+  const useSelfHostedApi = !!advancedConfigs?.useOwnApi
+
   const markAllAsRead = () => {
     toast.success('Mark all as read')
     markAsRead(ids)
@@ -90,6 +92,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
             const isNextError = errorIdxs.includes(idx + 1)
             const isFirst = idx === 0
             const isLast = idx === ids.length - 1
+            const api = useSelfHostedApi && id && `/api/v2/get-tweets/${id}`
             return (
               <div className={cx('flex relative w-full')} key={id}>
                 <ErrorBoundary
@@ -114,6 +117,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
                     isRead={isRead(id)}
                     index={idx}
                     markAsRead={markAsRead}
+                    api={api}
                   />
                 </ErrorBoundary>
               </div>
@@ -179,11 +183,13 @@ function LazyTweet({
   isRead,
   index,
   markAsRead,
+  api,
 }: {
   id: string
   index: number
   isRead: boolean | undefined
   markAsRead: (id: string) => Promise<void>
+  api?: string | false
 }) {
   const [marked, setMarked] = useState(false)
 
@@ -192,9 +198,10 @@ function LazyTweet({
   })
 
   const tweetBoxRef = useRef<HTMLDivElement>(null!)
-  const size = useSize(tweetBoxRef);
+  const size = useSize(tweetBoxRef)
   const isOver = size?.width ? size?.width > window.innerWidth * 0.9 : false
-  const scale = (isOver && size?.width) ? (window.innerWidth * 0.9) / size?.width : 1
+  const scale =
+    isOver && size?.width ? (window.innerWidth * 0.9) / size?.width : 1
   const needEatBottomMargin = -1 * ((size?.height || 0) * (1 - scale))
 
   if (!inView) {
@@ -240,7 +247,14 @@ function LazyTweet({
           }}
           className={cx('max-w-[550px]', isOver && 's:origin-top-left')}
         >
-          <Tweet id={id} />
+          <Tweet
+            id={id}
+            {...(api
+              ? {
+                  apiUrl: api,
+                }
+              : {})}
+          />
         </div>
       </div>
     </>

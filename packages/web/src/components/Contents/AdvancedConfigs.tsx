@@ -8,6 +8,7 @@ import { Tooltip } from '@/components/Tooltip'
 import { useShortcut } from '@/hooks/useShortcut'
 import { EHotkeys } from '@/constants'
 import { toUpper } from 'lodash'
+import { useBreakpoint } from '@/hooks/useBreakpoint'
 
 export const AdvancedConfigs = ({
   configs,
@@ -28,8 +29,10 @@ export const AdvancedConfigs = ({
     })
   })
 
+  const { isMobile } = useBreakpoint()
+
   return (
-    <div className={cx('w-full pt-4', 'flex align-center')}>
+    <div className={cx('w-full pt-4', 'flex align-center flex-wrap gap-3')}>
       <Item
         label={
           <Tooltip
@@ -62,14 +65,33 @@ export const AdvancedConfigs = ({
           />
         }
       />
+      {!isMobile && (
+        <Item
+          label={
+            <Tooltip
+              content={`Use self-hosted api to get tweets`}
+            >{`Own API: `}</Tooltip>
+          }
+          value={
+            <HeartSwitch
+              checked={configs?.useOwnApi}
+              onChange={(e) => {
+                onChange?.({ useOwnApi: e.target.checked })
+                // reload page
+                window.location.reload()
+              }}
+            />
+          }
+        />
+      )}
     </div>
   )
 }
 
 function Item({ label, value }: { label: ReactNode; value: ReactNode }) {
   return (
-    <div className={cx('flex align-center flex-nowrap pr-4')}>
-      <div className={'pr-2'}>{label}</div>
+    <div className={cx('flex align-center flex-nowrap')}>
+      <div className={'pr-2 whitespace-nowrap'}>{label}</div>
       <div>{value}</div>
     </div>
   )

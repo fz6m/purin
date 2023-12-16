@@ -24,6 +24,7 @@ const ADAVANCED_CONFIGS_KEY = `purin_advanced_configs_v1`
 const defaultAdvancedConfigs: IAdvancedConfigs = {
   hideRead: false,
   hideError: false,
+  useOwnApi: false
 }
 
 export const Client = ({
