@@ -148,7 +148,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
           {`tweets`}
           {hideTweetCounts > 0 && ` (Hide ${hideTweetCounts} tweets)`}
         </div>
-        {isShowTweetsList && finalIds?.length && (
+        {(isShowTweetsList && finalIds?.length) ? (
           <div className={
             cx('flex flex-col gap-2')
           }>
@@ -172,7 +172,7 @@ export const Tabs = ({ tweetIds = [], advancedConfigs }: ITabsProps) => {
               )
             })}
           </div>
-        )}
+        ) : null}
       </div>
     </div>
   )
