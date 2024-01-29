@@ -2,8 +2,12 @@ import { apiSend } from '@/utils/api'
 import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
 
+interface IParams {
+  path?: string
+}
+
 export async function POST(request: NextRequest) {
-  let json: Record<string, any> = {}
+  let json: IParams = {}
   try {
     json = await request.json()
   } catch {

@@ -9,6 +9,10 @@ import { Contents } from '@/components/Contents'
 // import { Suspense } from 'react'
 // import { CardioLoading } from '@/components/Contents/CardioLoading'
 
+// FIXME: when we do not visit the web site for a while
+//        on the next visit `Suspense` will never be resolved 🤬
+export const dynamic = 'force-dynamic'
+
 export default async function Home({
   searchParams,
 }: {
