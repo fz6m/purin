@@ -17,7 +17,7 @@ const finalDescription = getFinalDescription(meta.title, meta.description)
 export const metadata: Metadata = {
   title: finalTitle,
   description: finalDescription,
-  metadataBase: process.env.VERCEL_URL ? new URL(`https://${process.env.VERCEL_URL}`) : new URL(`http://localhost:3000`),
+  metadataBase: process.env.NEXT_PUBLIC_SITE_URL ? new URL(`https://${process.env.NEXT_PUBLIC_SITE_URL}`) : new URL(`http://localhost:3000`),
   icons: {
     apple: {
       url: '/apple-touch-icon-180x180.png',
