@@ -75,12 +75,6 @@ importers:
       hotkeys-js:
         specifier: ^3.12.0
         version: registry.npmjs.org/hotkeys-js@3.13.2
-      jotai:
-        specifier: ^2.5.1
-        version: registry.npmjs.org/jotai@2.6.0(@types/react@18.2.45)(react@18.2.0)
-      ldrs:
-        specifier: ^1.0.1
-        version: registry.npmjs.org/ldrs@1.0.1
       localforage:
         specifier: ^1.10.0
         version: registry.npmjs.org/localforage@1.10.0
@@ -90,6 +84,9 @@ importers:
       next:
         specifier: 14.0.4
         version: registry.npmjs.org/next@14.0.4(react-dom@18.2.0)(react@18.2.0)(sass@1.69.5)
+      nprogress:
+        specifier: ^0.2.0
+        version: 0.2.0
       purin:
         specifier: workspace:*
         version: link:../x
@@ -102,9 +99,6 @@ importers:
       react-error-boundary:
         specifier: ^4.0.12
         version: registry.npmjs.org/react-error-boundary@4.0.12(react@18.2.0)
-      react-feather:
-        specifier: ^2.0.10
-        version: registry.npmjs.org/react-feather@2.0.10(react@18.2.0)
       react-intersection-observer:
         specifier: ^9.5.3
         version: registry.npmjs.org/react-intersection-observer@9.5.3(react@18.2.0)
@@ -114,9 +108,6 @@ importers:
       react-tooltip:
         specifier: ^5.24.0
         version: registry.npmjs.org/react-tooltip@5.25.0(react-dom@18.2.0)(react@18.2.0)
-      react-top-loading-bar:
-        specifier: ^2.3.1
-        version: registry.npmjs.org/react-top-loading-bar@2.3.1(react@18.2.0)
       react-tweet:
         specifier: ^3.1.1
         version: registry.npmjs.org/react-tweet@3.1.1(react-dom@18.2.0)(react@18.2.0)
@@ -142,6 +133,9 @@ importers:
       '@types/lodash':
         specifier: ^4.14.202
         version: registry.npmjs.org/@types/lodash@4.14.202
+      '@types/nprogress':
+        specifier: ^0.2.3
+        version: 0.2.3
       '@types/react':
         specifier: ^18.2.45
         version: registry.npmjs.org/@types/react@18.2.45
@@ -598,6 +592,10 @@ packages:
     dev: true
     optional: true
 
+  /@types/nprogress@0.2.3:
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==, tarball: https://registry.npmjs.org/@types/nprogress/-/nprogress-0.2.3.tgz}
+    dev: true
+
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==, tarball: https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -610,6 +608,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==, tarball: https://registry.npmjs.org/nprogress/-/nprogress-0.2.0.tgz}
+    dev: false
 
   registry.npmjs.org/@aashutoshrathi/word-wrap@1.2.6:
     resolution: {integrity: sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz}
@@ -3518,25 +3520,6 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmjs.org/jotai@2.6.0(@types/react@18.2.45)(react@18.2.0):
-    resolution: {integrity: sha512-Vt6hsc04Km4j03l+Ax+Sc+FVft5cRJhqgxt6GTz6GM2eM3DyX3CdBdzcG0z2FrlZToL1/0OAkqDghIyARWnSuQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/jotai/-/jotai-2.6.0.tgz}
-    id: registry.npmjs.org/jotai/2.6.0
-    name: jotai
-    version: 2.6.0
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      '@types/react': '>=17.0.0'
-      react: '>=17.0.0'
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react:
-        optional: true
-    dependencies:
-      '@types/react': registry.npmjs.org/@types/react@18.2.45
-      react: registry.npmjs.org/react@18.2.0
-    dev: false
-
   registry.npmjs.org/js-cookie@2.2.1:
     resolution: {integrity: sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.1.tgz}
     name: js-cookie
@@ -3634,12 +3617,6 @@ packages:
     dependencies:
       language-subtag-registry: registry.npmjs.org/language-subtag-registry@0.3.22
     dev: true
-
-  registry.npmjs.org/ldrs@1.0.1:
-    resolution: {integrity: sha512-eeCP1XEG72Yz6JX50zlYWRJcEfNBrpp8QSzyjD3HHhxrnt4steLX4iDHF3Dezjbnnj5qtuJn7lr1nln+/kpUIQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/ldrs/-/ldrs-1.0.1.tgz}
-    name: ldrs
-    version: 1.0.1
-    dev: false
 
   registry.npmjs.org/levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/levn/-/levn-0.4.1.tgz}
@@ -4352,18 +4329,6 @@ packages:
       react: registry.npmjs.org/react@18.2.0
     dev: false
 
-  registry.npmjs.org/react-feather@2.0.10(react@18.2.0):
-    resolution: {integrity: sha512-BLhukwJ+Z92Nmdcs+EMw6dy1Z/VLiJTzEQACDUEnWMClhYnFykJCGWQx+NmwP/qQHGX/5CzQ+TGi8ofg2+HzVQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/react-feather/-/react-feather-2.0.10.tgz}
-    id: registry.npmjs.org/react-feather/2.0.10
-    name: react-feather
-    version: 2.0.10
-    peerDependencies:
-      react: '>=16.8.6'
-    dependencies:
-      prop-types: registry.npmjs.org/prop-types@15.8.1
-      react: registry.npmjs.org/react@18.2.0
-    dev: false
-
   registry.npmjs.org/react-intersection-observer@9.5.3(react@18.2.0):
     resolution: {integrity: sha512-NJzagSdUPS5rPhaLsHXYeJbsvdpbJwL6yCHtMk91hc0ufQ2BnXis+0QQ9NBh6n9n+Q3OyjR6OQLShYbaNBkThQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/react-intersection-observer/-/react-intersection-observer-9.5.3.tgz}
     id: registry.npmjs.org/react-intersection-observer/9.5.3
@@ -4417,18 +4382,6 @@ packages:
       classnames: registry.npmjs.org/classnames@2.3.2
       react: registry.npmjs.org/react@18.2.0
       react-dom: registry.npmjs.org/react-dom@18.2.0(react@18.2.0)
-    dev: false
-
-  registry.npmjs.org/react-top-loading-bar@2.3.1(react@18.2.0):
-    resolution: {integrity: sha512-rQk2Nm+TOBrM1C4E3e6KwT65iXyRSgBHjCkr2FNja1S51WaPulRA5nKj/xazuQ3x89wDDdGsrqkqy0RBIfd0xg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/react-top-loading-bar/-/react-top-loading-bar-2.3.1.tgz}
-    id: registry.npmjs.org/react-top-loading-bar/2.3.1
-    name: react-top-loading-bar
-    version: 2.3.1
-    engines: {node: '>=10'}
-    peerDependencies:
-      react: ^16 || ^17 || ^18
-    dependencies:
-      react: registry.npmjs.org/react@18.2.0
     dev: false
 
   registry.npmjs.org/react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):

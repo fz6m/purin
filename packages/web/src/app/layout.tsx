@@ -1,6 +1,9 @@
-import type { Metadata, Viewport } from 'next'
+// global styles
 import '@/styles/tailwind.css'
 import '@/styles/globals.scss'
+import 'nprogress/nprogress.css'
+
+import type { Metadata, Viewport } from 'next'
 import { playFont, workFont } from '@/utils/fonts'
 import cx from 'classnames'
 import { SEO, getFinalDescription, getFinalTitle } from '@/components/SEO'
@@ -14,6 +17,7 @@ const finalDescription = getFinalDescription(meta.title, meta.description)
 export const metadata: Metadata = {
   title: finalTitle,
   description: finalDescription,
+  metadataBase: process.env.VERCEL_URL ? new URL(`https://${process.env.VERCEL_URL}`) : new URL(`http://localhost:3000`),
   icons: {
     apple: {
       url: '/apple-touch-icon-180x180.png',
