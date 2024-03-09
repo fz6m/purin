@@ -98,8 +98,8 @@ X(Twitter) list collector
 
    ```json
    {
-     "authorization": "...",
-     "cookie": "..."
+     "authorization": "Bearer ...",
+     "cookie": "kdt=...; dnt=...; guest_id=...; ..."
    }
    ```
 
