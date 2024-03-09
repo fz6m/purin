@@ -105,7 +105,7 @@ X(Twitter) list collector
 
      <details>
        <summary>
-         the cookie must contain at least the following values:
+         view the cookie schema
        </summary>
        <pre>[
      "kdt",
