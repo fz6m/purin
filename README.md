@@ -103,6 +103,26 @@ X(Twitter) list collector
    }
    ```
 
+     <details>
+       <summary>
+         the cookie must contain at least the following values:
+       </summary>
+       <pre>[
+     "kdt",
+     "dnt",
+     "guest_id",
+     "auth_token",
+     "twid",
+     "ct0",
+     "d_prefs",
+     "lang",
+     "_twitter_sess",
+     "guest_id_marketing",
+     "guest_id_ads",
+     "personalization_id",
+   ]</pre>
+     </details>
+     
    Supabase cron job example ([docs](https://supabase.com/docs/guides/functions/schedule-functions)) :
 
    ```sql
