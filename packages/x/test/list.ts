@@ -1,5 +1,5 @@
 import { getListHotTweets } from '../src'
-const list = require('./list.json').a
+const list = '233096513'
 
 const run = async () => {
   const res = await getListHotTweets({
